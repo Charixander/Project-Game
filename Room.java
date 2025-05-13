@@ -10,5 +10,9 @@ public class Room {
   public static void resetRanks() {
     roomRanks = 1;
   }
+
+  public String getDesc() {
+    return roomDesc
+  }
   
 }
