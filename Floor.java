@@ -1,6 +1,6 @@
 public class Floor {
 
-  private static int floorLevel;
+  private static int floorLevel = 1;
 
   public static void nextLevel()
   {
