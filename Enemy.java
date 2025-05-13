@@ -1,0 +1,43 @@
+public class Enemy extends Mob {
+
+  private int xpReward;
+  private int moneyReward;
+  private Equippable weapon;
+  private Equippable armor;
+
+  public Enemy ()
+  {
+    xpReward = 0;
+    moneyReward = 0;
+    weapon = null;
+    armor = null;
+  }
+
+  public Enemy (String name)
+  {
+    super(name);
+    xpReward = 0;
+    moneyReward = 0;
+    weapon = null;
+    armor = null;
+  }
+
+  public Enemy (String name, int HP, int ATK, int DEF)
+  {
+    super(name, HP, ATK, DEF);
+    xpReward = 0;
+    moneyReward = 0;
+    weapon = null;
+    armor = null;
+  }
+
+  public Enemy (String name, int HP, int ATK, int DEF, int xp, int money, Equippable weapon, Equippable armor)
+  {
+    super(name, HP, ATK, DEF);
+    xpReward = xp;
+    moneyReward = money;
+    this.weapon = weapon;
+    this.armor = armor;
+  }
+  
+}
