@@ -90,6 +90,13 @@ public class Mob {
     return isAlive;
   }
 
+  public void addHealth(int amount) {
+    currentHealth += amount;
+    if (currentHealth > healthStat) {
+      currentHealth = healthStat;
+    }
+  }
+
   public void takeDamage(int amount)
   {
     currentHealth -= amount;
