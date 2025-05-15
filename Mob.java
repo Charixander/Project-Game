@@ -127,12 +127,31 @@ public class Mob {
 
   public void takeDamage(int amount)
   {
-    currentHealth -= amount;
+    int damage = amount;
+    if (armor != null)
+    {
+      damage -= armor.getDefense();
+      if (damage < 1)
+      {
+        damage = 1;
+      }
+    }
+    currentHealth =- damage;
     if (currentHealth <= 0)
     {
       currentHealth = 0;
       isAlive = false;
     }
+  }
+
+  public int attackDamage()
+  {
+    int total = attackStat;
+    if (weapon != null)
+    {
+      total += weapon.getAttack();
+    }
+    return total;
   }
 
   
