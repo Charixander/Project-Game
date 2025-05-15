@@ -2,15 +2,11 @@ public class Enemy extends Mob {
 
   private int xpReward;
   private int moneyReward;
-  private Equippable weapon;
-  private Equippable armor;
 
   public Enemy ()
   {
     xpReward = 0;
     moneyReward = 0;
-    weapon = null;
-    armor = null;
   }
 
   public Enemy (String name)
@@ -18,13 +14,11 @@ public class Enemy extends Mob {
     super(name);
     xpReward = 0;
     moneyReward = 0;
-    weapon = null;
-    armor = null;
   }
 
-  public Enemy (String name, int HP, int ATK, int DEF)
+  public Enemy (String name, int HP, int ATK, int DEF, Equippable weapon, Equippable armor)
   {
-    super(name, HP, ATK, DEF);
+    super(name, HP, ATK, DEF, weapon, armor);
     xpReward = 0;
     moneyReward = 0;
     weapon = null;
