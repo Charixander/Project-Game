@@ -85,7 +85,7 @@ public class Mob {
     return defenseStat;
   }
 
-  public boolean getLife()
+  public boolean isAlive()
   {
     return isAlive;
   }
