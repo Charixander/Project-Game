@@ -103,7 +103,7 @@ public class Mob {
     return weapon;
   }
 
-  public Eqippable getArmor()
+  public Equippable getArmor()
   {
     return armor;
   }
