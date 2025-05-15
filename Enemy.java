@@ -27,11 +27,9 @@ public class Enemy extends Mob {
 
   public Enemy (String name, int HP, int ATK, int DEF, int xp, int money, Equippable weapon, Equippable armor)
   {
-    super(name, HP, ATK, DEF);
+    super(name, HP, ATK, DEF, weapon, armor);
     xpReward = xp;
     moneyReward = money;
-    this.weapon = weapon;
-    this.armor = armor;
   }
   
 }
