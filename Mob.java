@@ -17,6 +17,8 @@ public class Mob {
     attackStat = 1;
     defenseStat = 1;
     isAlive = true;
+    weapon = null;
+    armor = null;
   }
   
   public Mob (String name)
@@ -35,9 +37,11 @@ public class Mob {
     attackStat = 1;
     defenseStat = 1;
     isAlive = true;
+    weapon = null;
+    armor = null;
   }
   
-  public Mob (String name, int healthStat, int attackStat, int defenseStat)
+  public Mob (String name, int healthStat, int attackStat, int defenseStat, Equippable weapon, Equippable armor)
   {
     if (name.length() < 1)
     {
@@ -60,6 +64,8 @@ public class Mob {
     this.attackStat = attackStat;
     this.defenseStat = defenseStat;
     isAlive = true;
+    this.weapon = weapon;
+    this.armor = armor;
   }
 
   public String getName()
