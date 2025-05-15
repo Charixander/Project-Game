@@ -4,6 +4,13 @@ public class Item {
   String description;
   int level;
 
+  public Item ()
+  {
+    this.name = "Air";
+    description = "An item.";
+    level = 1;
+  }
+
   public Item (String name)
   {
     this.name = name;
