@@ -136,7 +136,7 @@ public class Mob {
         damage = 1;
       }
     }
-    currentHealth =- damage;
+    currentHealth -= damage;
     if (currentHealth <= 0)
     {
       currentHealth = 0;
