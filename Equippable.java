@@ -22,5 +22,15 @@ public class Equippable extends Item {
     baseDefense = def;
   }
 
+  public int getAttack()
+  {
+    return baseAttack;
+  }
+
+  public int getDefense()
+  {
+    return baseDefense;
+  }
+
   
 }
