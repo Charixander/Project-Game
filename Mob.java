@@ -6,6 +6,8 @@ public class Mob {
   private int attackStat;
   private int defenseStat;
   private boolean isAlive;
+  private Equippable weapon;
+  private Equippable armor;
 
   public Mob ()
   {
@@ -88,6 +90,26 @@ public class Mob {
   public boolean isAlive()
   {
     return isAlive;
+  }
+
+  public Equippable getWeapon()
+  {
+    return weapon;
+  }
+
+  public Eqippable getArmor()
+  {
+    return armor;
+  }
+
+  public void setWeapon(Equippable weapon)
+  {
+    this.weapon = weapon;
+  }
+
+  public void setArmor(Equippable armor)
+  {
+    this.armor = armor;
   }
 
   public void addHealth(int amount) {
