@@ -22,13 +22,11 @@ public class Equippable extends Item {
     baseDefense = def;
   }
 
-  public int getAttack()
-  {
+  public int getAtk() {
     return baseAttack;
   }
 
-  public int getDefense()
-  {
+  public int getDef() {
     return baseDefense;
   }
 
