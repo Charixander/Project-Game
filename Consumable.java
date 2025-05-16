@@ -15,6 +15,20 @@ public class Consumable extends Item {
     turnDuration = 1;
   }
 
+  public Consumable (String name, int hp)
+  {
+    super(name);
+    healthRestore = hp;
+    turnDuration = 1;
+  }
+
+  public Consumable (String name, int hp, int turns)
+  {
+    super(name);
+    healthRestore = hp;
+    turnDuration = turns;
+  }
+
   public Consumable (String name, String description, int level, int hp, int turns)
   {
     super(name, description, level);
@@ -26,10 +40,20 @@ public class Consumable extends Item {
     }
   }
 
+  public int getHeal()
+  {
+    return healthRestore;
+  }
+
   public void consume(Player player)
   {
     player.addHealth(healthRestore);
     turnDuration--;
+  }
+
+  public int turnsLeft()
+  {
+    return turnDuration;
   }
   
 }
