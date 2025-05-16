@@ -2,33 +2,91 @@ public class Equippable extends Item {
 
   private int baseAttack;
   private int baseDefense;
+  private boolean isWeapon;
 
   public Equippable () 
   {
-    baseAttack = 0;
+    baseAttack = 1;
     baseDefense = 0;
+    isWeapon = true;
   }
 
-  public Equippable (int atk, int def)
+  public Equippable (int stat, boolean isWeapon)
   {
-    baseAttack = atk;
-    baseDefense = def;
+    this.isWeapon = isWeapon;
+    if (isWeapon)
+    {
+      baseAttack = stat;
+      baseDefense = 0;
+    }
+    else 
+    {
+      baseAttack = 0;
+      baseDefense = stat;
+    }
   }
 
-  public Equippable (String name, String description, int level, int atk, int def)
+  public Equippable (String name, int stat, boolean isWeapon)
+  {
+    super(name);
+    this.isWeapon = isWeapon;
+    if (isWeapon)
+    {
+      baseAttack = stat;
+      baseDefense = 0;
+    }
+    else 
+    {
+      baseAttack = 0;
+      baseDefense = stat;
+    }
+  }
+
+  public Equippable (String name, String description, int level, int stat, boolean isWeapon)
   {
     super(name, description, level);
-    baseAttack = atk;
-    baseDefense = def;
+    this.isWeapon = isWeapon;
+    if (isWeapon)
+    {
+      baseAttack = stat;
+      baseDefense = 0;
+    }
+    else 
+    {
+      baseAttack = 0;
+      baseDefense = stat;
+    }
   }
 
-  public int getAtk() {
+  public int getAttack()
+  {
     return baseAttack;
   }
 
-  public int getDef() {
+  public int getDefense()
+  {
     return baseDefense;
   }
 
+  public boolean isWeapon()
+  {
+    return isWeapon;
+  }
+
+  public String info()
+  {
+    String text = super.info();
+    text += "\n\n";
+    if (isWeapon)
+    {
+      text += "Increases ATK by " + baseAttack;
+    }
+    else 
+    {
+      text += "Increases DEF by " + baseDefense;
+    }
+
+    return text;
+  }
   
 }
