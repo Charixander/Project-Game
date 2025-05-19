@@ -18,10 +18,6 @@ public class Room {
     roomRanks = 1;
   }
 
-  public int getRoomRank() {
-    return roomRank();
-  }
-
   public String getDesc() {
     return roomDesc;
   }
