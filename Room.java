@@ -1,4 +1,5 @@
 public class Room {
+  
   private static int roomRanks = 1;
   private int roomRank;
   private String[] cleanliness = {"musty", "rancid", "clean", "spotless", "decayed", "moldy", "gross", "boring", "golden"};
@@ -15,6 +16,10 @@ public class Room {
 
   public static void resetRanks() {
     roomRanks = 1;
+  }
+
+  public int getRoomRank() {
+    return roomRank();
   }
 
   public String getDesc() {
