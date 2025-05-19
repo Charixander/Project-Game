@@ -34,12 +34,12 @@ public class Combat {
   {
     System.out.println("\nYour turn!\n\n");
 
-    System.out.println(player.getName() + ": " + player.getHealth()+"/"+player.getStatHP() + " HP, " + player.getStatATK(true) + " ATK, " + player.getStatDEF(true) + " DEF");
-    System.out.println(enemy.getName() + ": " + enemy.getHealth() + " HP");
+    System.out.println(player.getName() + ": " + player.getHealth()+"/"+player.getStatHP() + " HP, " + player.getStatATK() + " ATK, " + player.getStatDEF() + " DEF");
+    System.out.println(enemy.getName() + ": " + enemy.getHealth()+"/"+enemy.getStatHP() + " HP");
 
     if (playerEffect != null)
     {
-      System.out.println("\n[" + playerEffect.getName() + " still in effect for " + playerEffect.turnsLeft() + ".]");
+      System.out.println("\n[" + playerEffect.getName() + " still in effect for " + playerEffect.turnsLeft() + " turns.]");
     }
     Scanner input = new Scanner(System.in);
     
@@ -51,7 +51,7 @@ public class Combat {
 
       if (action.toLowerCase().equals("attack"))
       {
-        System.out.println("\nYou hit " + enemy.getName() + " for " + enemy.takeDamage(player.getStatATK(true)) + " damage!\n");
+        System.out.println("\nYou hit " + enemy.getName() + " for " + enemy.takeDamage(player.getStatATK()) + " damage!\n");
         flag = false;
       }
       else if (action.toLowerCase().equals("item"))
@@ -60,14 +60,14 @@ public class Combat {
         player.updateInventory();
         while (invCheck)
         {
-          System.out.println("Inventory:\n" + player.openInventory() + "\n(Select inventory item OR say return)");
+          System.out.println("Inventory:\n" + player.openInventory() + "\n(Type the item's number to select it. Type back to return.)");
           String n = input.nextLine();
           int temp = 0;
           if (n.matches("-?\\d+"))
           {
             temp = Integer.parseInt(n);
           }
-          if (n.toLowerCase().equals("return"))
+          if (n.toLowerCase().equals("back"))
           {
             invCheck = false;
           }
@@ -173,7 +173,7 @@ public class Combat {
     String name = enemy.getName();
 
     System.out.print("\n" + name + " attacks you!\n");
-    System.out.println("You take " + player.takeDamage(enemy.getStatATK(true)) + " damage.\n");
+    System.out.println("You take " + player.takeDamage(enemy.getStatATK()) + " damage.\n");
   }
 
   public void newTurn()
