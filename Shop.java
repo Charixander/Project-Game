@@ -12,7 +12,7 @@ public class Shop extends Room {
 
   public void createInventory() {
     for (int i = 0; i < inventory.length; i++) {
-      select = (int) (Math.random() * 4 + 1)
+      select = (int) (Math.random() * 4 + 1);
       if (select == 1) {
         inventory[i] = generateHealth();
       } else if (select == 2) {
@@ -48,22 +48,22 @@ public class Shop extends Room {
   }
   
   private Consumable generateHealth() {
-    Consumable health = new Consumable(3 * roomRank);
+    Consumable health = new Consumable(3 * roomRank());
     return health;
   }
   
   private Consumable generateRegen() {
-    Consumable regen = new Consumable(2 * roomRank);
+    Consumable regen = new Consumable(2 * roomRank());
     return regen;
   }
 
   private Equippable generateArmor() {
-    Equippable armor = new Equippable(5 * roomRank, false);
+    Equippable armor = new Equippable(5 * roomRank(), false);
       return armor;
   }
 
   private Equippable generateWeapon() {
-    Equippable weapon = new Equippable(5 * roomRank, true);
+    Equippable weapon = new Equippable(5 * roomRank(), true);
     return weapon;
   }
 
