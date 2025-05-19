@@ -6,8 +6,8 @@ public class Item {
 
   public Item ()
   {
-    this.name = "Air";
-    description = "An item.";
+    name = "N/A";
+    description = "Placeholder";
     level = 1;
   }
 
@@ -30,6 +30,29 @@ public class Item {
     this.name = name;
     this.description = description;
     this.level = level;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public String getDescription()
+  {
+    return description;
+  }
+
+  public int getLevel()
+  {
+    return level;
+  }
+
+  public String info()
+  {
+    String text = "\"" + name + "\"";
+    text += "\n------\n";
+    text += description;
+    return text;
   }
   
 }
