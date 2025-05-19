@@ -83,18 +83,18 @@ public class Mob {
     return healthStat;
   }
 
-  public int getStatATK(boolean hasWeapon)
+  public int getStatATK()
   {
-    if (hasWeapon && weapon != null)
+    if (weapon != null)
     {
       return attackStat + weapon.getAttack();
     }
     return attackStat;
   }
 
-  public int getStatDEF(boolean hasArmor)
+  public int getStatDEF()
   {
-    if (hasArmor && armor != null)
+    if (armor != null)
     {
       return defenseStat + armor.getDefense();
     }
@@ -136,13 +136,10 @@ public class Mob {
   public int takeDamage(int amount)
   {
     int damage = amount;
-    if (armor != null)
+    damage -= getStatDEF();
+    if (damage <= 0)
     {
-      damage -= armor.getDefense();
-      if (damage < 1)
-      {
-        damage = 1;
-      }
+      damage = 1;
     }
     currentHealth -= damage;
     if (currentHealth <= 0)
@@ -152,6 +149,5 @@ public class Mob {
     }
     return damage;
   }
-
   
 }
