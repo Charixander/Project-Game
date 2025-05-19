@@ -10,7 +10,7 @@ public class Room {
   public Room() {
     roomRank = roomRanks;
     roomRanks++;
-    roomDesc = "A " + cleanliness[(int) (Math.random() * 9)] + " room with " + lights[(int) (Math.random() * 4)] + ". " + second[(int) (Math.random() * 4)];
+    roomDesc = "A " + cleanliness[(int) (Math.random() * cleanliness.length)] + " room with " + lights[(int) (Math.random() * lights.length)] + ". " + second[(int) (Math.random() * second.length)];
   }
 
   public static void resetRanks() {
