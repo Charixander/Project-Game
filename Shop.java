@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Shop extends Room {
   String roomDesc = "A shop for weary travelers.";
   Item[] inventory = new Item[5];
+
+  Scanner input = new Scanner();
   
   public Shop(Player player) {
     super(roomRank);
@@ -12,7 +14,7 @@ public class Shop extends Room {
 
   public void createInventory() {
     for (int i = 0; i < inventory.length; i++) {
-      select = (int) (Math.random() * 4 + 1);
+      int select = (int) (Math.random() * 4 + 1);
       if (select == 1) {
         inventory[i] = generateHealth();
       } else if (select == 2) {
@@ -35,7 +37,7 @@ public class Shop extends Room {
 
       if (action.toLowerCase().equals("buy")) {
         //select stuff from list
-        System.out.println(getInfo());
+        System.out.println(getInventory());
         flag = false;
       } else if (action.toLowerCase().equals("sell")) {
         //select stuff from inventory
