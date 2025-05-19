@@ -36,10 +36,13 @@ public class Shop extends Room {
       if (action.toLowerCase().equals("buy")) {
         //select stuff from list
         System.out.println(getInfo());
+        flag = false;
       } else if (action.toLowerCase().equals("sell")) {
         //select stuff from inventory
+        flag = false;
       } else {
         System.out.println("Invalid input.\n\n");
+        dialouge();
       }
     }
   }
