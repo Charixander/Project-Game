@@ -58,6 +58,22 @@ public class Equippable extends Item {
     }
   }
 
+  public Equippable (String name, String description, int level, int price, int stat, boolean isWeapon)
+  {
+    super(name, description, level, price);
+    this.isWeapon = isWeapon;
+    if (isWeapon)
+    {
+      baseAttack = stat;
+      baseDefense = 0;
+    }
+    else 
+    {
+      baseAttack = 0;
+      baseDefense = stat;
+    }
+  }
+
   public int getAttack()
   {
     return baseAttack;
