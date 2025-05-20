@@ -390,7 +390,7 @@ public class Combat {
         int rng = (int) (Math.random() * 2) + 1;
         if (rng == 2)
         {
-          System.out.print("\n" + e.getName() + " heals " + e.healSelfAmount() + " HP!\n");
+          System.out.print("\n" + e.getName() + " heals " + e.healSelfAmount() + " HP!\n\n");
           e.healSelf();
         }
         else
@@ -404,7 +404,7 @@ public class Combat {
         int rng = (int) (Math.random() * 6) + 1;
         if (rng == 6)
         {
-          System.out.print("\n" + e.getName() + " heals " + e.healSelfAmount() + " HP!\n");
+          System.out.print("\n" + e.getName() + " heals " + e.healSelfAmount() + " HP!\n\n");
           e.healSelf();
         }
         else
@@ -425,17 +425,45 @@ public class Combat {
       {
         if (enemyCount == 2)
         {
-          healCheck(e, enemy2);
+          if (enemy2.isAlive())
+          {
+            healCheck(e, enemy2);
+          }
+          else
+          {
+            System.out.print("\n" + name + " attacks you!\n");
+            System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+          }
         }
         else
         {
           if (enemy2.getHealth() > enemy3.getHealth())
           {
-            healCheck(e, enemy3);
+            if (enemy3.isAlive())
+            {
+              healCheck(e, enemy3);
+            }
+            else if (enemy2.isAlive())
+            {
+              healCheck(e, enemy2);
+            }
+            else
+            {
+              System.out.print("\n" + name + " attacks you!\n");
+              System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+            }
           }
           else
           {
-            healCheck(e, enemy2);
+            if (enemy2.isAlive())
+            {
+              healCheck(e, enemy2);
+            }
+            else
+            {
+              System.out.print("\n" + name + " attacks you!\n");
+              System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+            }
           }
         }
       }
@@ -443,17 +471,45 @@ public class Combat {
       {
         if (enemyCount == 2)
         {
-          healCheck(e, enemy);
+          if (enemy.isAlive())
+          {
+            healCheck(e, enemy);
+          }
+          else
+          {
+            System.out.print("\n" + name + " attacks you!\n");
+            System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+          }
         }
         else
         {
           if (enemy.getHealth() > enemy3.getHealth())
           {
-            healCheck(e, enemy3);
+            if (enemy3.isAlive())
+            {
+              healCheck(e, enemy3);
+            }
+            else if (enemy.isAlive())
+            {
+              healCheck(e, enemy);
+            }
+            else
+            {
+              System.out.print("\n" + name + " attacks you!\n");
+              System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+            }
           }
           else
           {
-            healCheck(e, enemy);
+            if (enemy.isAlive())
+            {
+              healCheck(e, enemy);
+            }
+            else
+            {
+              System.out.print("\n" + name + " attacks you!\n");
+              System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+            }
           }
         }
       }
@@ -461,11 +517,31 @@ public class Combat {
       {
         if (enemy.getHealth() > enemy2.getHealth())
           {
-            healCheck(e, enemy2);
+            if (enemy2.isAlive())
+            {
+              healCheck(e, enemy2);
+            }
+            else if (enemy.isAlive())
+            {
+              healCheck(e, enemy);
+            }
+            else
+            {
+              System.out.print("\n" + name + " attacks you!\n");
+              System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+            }
           }
           else
           {
-            healCheck(e, enemy);
+            if (enemy.isAlive())
+            {
+              healCheck(e, enemy);
+            }
+            else
+            {
+              System.out.print("\n" + name + " attacks you!\n");
+              System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+            }
           }
       }
       else
