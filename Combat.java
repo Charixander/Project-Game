@@ -4,6 +4,9 @@ public class Combat {
 
   private Player player;
   private Enemy enemy;
+  private Enemy enemy2;
+  private Enemy enemy3;
+  private int enemyCount;
   private boolean playerTurn;
   private Consumable playerEffect;
 
@@ -11,6 +14,31 @@ public class Combat {
   {
     this.player = player;
     this.enemy = enemy;
+    enemy2 = null;
+    enemy3 = null;
+    enemyCount = 1;
+    playerTurn = true;
+    playerEffect = null;
+  }
+
+  public Combat (Player player, Enemy enemy, Enemy enemy2)
+  {
+    this.player = player;
+    this.enemy = enemy;
+    this.enemy2 = enemy2;
+    enemy3 = null;
+    enemyCount = 2;
+    playerTurn = true;
+    playerEffect = null;
+  }
+
+  public Combat (Player player, Enemy enemy, Enemy enemy2, Enemy enemy3)
+  {
+    this.player = player;
+    this.enemy = enemy;
+    this.enemy2 = enemy2;
+    this.enemy3 = enemy3;
+    enemyCount = 3;
     playerTurn = true;
     playerEffect = null;
   }
@@ -18,24 +46,73 @@ public class Combat {
   public void combatBegin()
   {
     System.out.println("\nCombat Sparked!\n");
-    while (player.isAlive() && enemy.isAlive())
+    if (enemyCount == 1)
     {
-      newTurn();
-      playerTurn();
-      if (enemy.isAlive())
+      while (player.isAlive() && enemy.isAlive())
       {
-        enemyTurn();
+        newTurn();
+        playerTurn();
+        if (enemy.isAlive())
+        {
+          enemyTurn(enemy);
+        }
       }
+      battleEnd();
     }
-    battleEnd();
+    else if (enemyCount == 2)
+    {
+      while (player.isAlive() && (enemy.isAlive() || enemy2.isAlive()))
+      {
+        newTurn();
+        playerTurn();
+        if (enemy.isAlive())
+        {
+          enemyTurn(enemy);
+        }
+        if (enemy2.isAlive())
+        {
+          enemyTurn(enemy2);
+        }
+      }
+      battleEnd();
+    }
+    else 
+    {
+      while (player.isAlive() && (enemy.isAlive() || enemy2.isAlive() || enemy3.isAlive()))
+      {
+        newTurn();
+        playerTurn();
+        if (enemy.isAlive())
+        {
+          enemyTurn(enemy);
+        }
+        if (enemy2.isAlive())
+        {
+          enemyTurn(enemy2);
+        }
+        if (enemy3.isAlive())
+        {
+          enemyTurn(enemy3);
+        }
+      }
+      battleEnd();
+    }
   }
 
   public void playerTurn()
   {
     System.out.println("\nYour turn!\n\n");
 
-    System.out.println(player.getName() + ": " + player.getHealth()+"/"+player.getStatHP() + " HP, " + player.getStatATK() + " ATK, " + player.getStatDEF() + " DEF");
+    System.out.println(player.getName() + ": " + player.getHealth()+"/"+player.getStatHP() + " HP, " + player.getStatATK() + " ATK, " + player.getStatDEF() + " DEF\n");
     System.out.println(enemy.getName() + ": " + enemy.getHealth()+"/"+enemy.getStatHP() + " HP");
+    if (enemy2 != null)
+    {
+      System.out.println(enemy2.getName() + ": " + enemy2.getHealth()+"/"+enemy2.getStatHP() + " HP");
+    }
+    if (enemy3 != null)
+    {
+      System.out.println(enemy3.getName() + ": " + enemy3.getHealth()+"/"+enemy3.getStatHP() + " HP");
+    }
 
     if (playerEffect != null)
     {
@@ -51,8 +128,117 @@ public class Combat {
 
       if (action.toLowerCase().equals("attack"))
       {
-        System.out.println("\nYou hit " + enemy.getName() + " for " + enemy.takeDamage(player.getStatATK()) + " damage!\n");
-        flag = false;
+        boolean attackCheck = true;
+        while (attackCheck)
+        {
+          if (enemy2 == null)
+          {
+            System.out.println("\nYou hit " + enemy.getName() + " for " + enemy.takeDamage(player.getStatATK()) + " damage!\n");
+            attackCheck = false;
+            flag = false;
+          }
+          else 
+          {
+            String temp = "Enemies:\n";
+            int value = 0;
+            if (enemy.isAlive())
+            {
+              temp += "| " + enemy.getName() + " (1) | ";
+            }
+            else 
+            {
+              temp += "| [Deceased] (1) | ";
+            }
+            if (enemy2.isAlive())
+            {
+              temp += enemy2.getName() + " (2) | ";
+            }
+            else
+            {
+              temp += "[Deceased] (2) | ";
+            }
+            if (enemy3 != null)
+            {
+              if (enemy3.isAlive())
+              {
+                temp += enemy3.getName() + " (3) | ";
+              }
+              else
+              {
+                temp += "[Deceased (3) | ";
+              }
+            }
+            temp += "\n(Type the enemy's number to attack them. Type back to return.)";
+            System.out.println(temp);
+            String n = input.nextLine();
+            if (n.matches("-?\\d+"))
+            {
+              value = Integer.parseInt(n);
+            }
+            if (n.toLowerCase().equals("back"))
+            {
+              attackCheck = false;
+            }
+            else if (value == 1)
+            {
+              if (!(enemy.isAlive()))
+              {
+                System.out.println(enemy.getName() + " is already dead.\n");
+              }
+              else 
+              {
+                System.out.println("\nYou hit " + enemy.getName() + " for " + enemy.takeDamage(player.getStatATK()) + " damage!\n");
+                attackCheck = false;
+                flag = false;
+
+                if (!(enemy.isAlive()))
+                {
+                  System.out.println(enemy.getName() + " has fallen.\n");
+                }
+              }
+            }
+            else if (value == 2)
+            {
+              if (!(enemy2.isAlive()))
+              {
+                System.out.println(enemy2.getName() + " is already dead.\n");
+              }
+              else 
+              {
+                System.out.println("\nYou hit " + enemy2.getName() + " for " + enemy2.takeDamage(player.getStatATK()) + " damage!\n");
+                attackCheck = false;
+                flag = false;
+
+                if (!(enemy2.isAlive()))
+                {
+                  System.out.println(enemy2.getName() + " has fallen.\n");
+                }
+              }
+            }
+            else if (value == 3 && enemy3 != null)
+            {
+              if (!(enemy3.isAlive()))
+              {
+                System.out.println(enemy3.getName() + " is already dead.\n");
+              }
+              else 
+              {
+                System.out.println("\nYou hit " + enemy3.getName() + " for " + enemy3.takeDamage(player.getStatATK()) + " damage!\n");
+                attackCheck = false;
+                flag = false;
+
+                if (!(enemy3.isAlive()))
+                {
+                  System.out.println(enemy3.getName() + " has fallen.\n");
+                }
+              }
+            }
+            else 
+            {
+              System.out.println("Invalid input.\n\n");
+            }
+          }
+        }
       }
       else if (action.toLowerCase().equals("item"))
       {
@@ -166,14 +352,171 @@ public class Combat {
         System.out.println("Invalid input. \n");
       }
     }
+    input.close();
   }
 
-  public void enemyTurn()
+  public void enemyTurn(Enemy e)
   {
-    String name = enemy.getName();
+    String name = e.getName();
+    int randomizer = 0;
+    boolean tempS = false;
+    boolean tempO = false;
+    if (e.canHealSelf())
+    {
+      tempS = true;
+    }
+    if (e.canHealOthers() && enemyCount >= 2)
+    {
+      tempO = true;
+    }
+    if (tempS && tempO)
+    {
+      randomizer = (int) (Math.random() * 2) + 1; // Either 1 or 2
+    }
+    else if (tempS)
+    {
+      randomizer = 1;
+    }
+    else if (tempO)
+    {
+      randomizer = 2;
+    }
 
-    System.out.print("\n" + name + " attacks you!\n");
-    System.out.println("You take " + player.takeDamage(enemy.getStatATK()) + " damage.\n");
+    if (randomizer == 1)
+    {
+      double value = 1.0 * e.getHealth() / e.getStatHP();
+      if (value <= 0.1)
+      {
+        int rng = (int) (Math.random() * 2) + 1;
+        if (rng == 2)
+        {
+          System.out.print("\n" + e.getName() + " heals " + e.healSelfAmount() + " HP!\n");
+          e.healSelf();
+        }
+        else
+        {
+          System.out.print("\n" + name + " attacks you!\n");
+          System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+        }
+      }
+      else if (value <= 0.5)
+      {
+        int rng = (int) (Math.random() * 6) + 1;
+        if (rng == 6)
+        {
+          System.out.print("\n" + e.getName() + " heals " + e.healSelfAmount() + " HP!\n");
+          e.healSelf();
+        }
+        else
+        {
+          System.out.print("\n" + name + " attacks you!\n");
+          System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+        }
+      }
+      else
+      {
+        System.out.print("\n" + name + " attacks you!\n");
+        System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+      }
+    }
+    else if (randomizer == 2)
+    {
+      if (e == enemy)
+      {
+        if (enemyCount == 2)
+        {
+          healCheck(e, enemy2);
+        }
+        else
+        {
+          if (enemy2.getHealth() > enemy3.getHealth())
+          {
+            healCheck(e, enemy3);
+          }
+          else
+          {
+            healCheck(e, enemy2);
+          }
+        }
+      }
+      else if (e == enemy2)
+      {
+        if (enemyCount == 2)
+        {
+          healCheck(e, enemy);
+        }
+        else
+        {
+          if (enemy.getHealth() > enemy3.getHealth())
+          {
+            healCheck(e, enemy3);
+          }
+          else
+          {
+            healCheck(e, enemy);
+          }
+        }
+      }
+      else if (e == enemy3 && enemyCount == 3)
+      {
+        if (enemy.getHealth() > enemy2.getHealth())
+          {
+            healCheck(e, enemy2);
+          }
+          else
+          {
+            healCheck(e, enemy);
+          }
+      }
+      else
+      {
+        System.out.print("\n" + name + " attacks you!\n");
+        System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+      }
+    }
+    else
+    {
+      System.out.print("\n" + name + " attacks you!\n");
+      System.out.println("You take " + player.takeDamage(e.getStatATK()) + " damage.\n");
+    }
+  }
+
+  private void healCheck(Enemy healer, Enemy target)
+  {
+    double value = 1.0 * target.getHealth() / target.getStatHP();
+    if (value <= 0.2)
+    {
+      int rng = (int) (Math.random() * 2) + 1;
+      if (rng == 2)
+      {
+        System.out.print("\n" + healer.getName() + " heals " + target.getName() + " " + healer.healOtherAmount() + " HP!\n");
+        healer.healOther(target);
+      }
+      else
+      {
+        System.out.print("\n" + healer.getName() + " attacks you!\n");
+        System.out.println("You take " + player.takeDamage(healer.getStatATK()) + " damage.\n");
+      }
+    }
+    else if (value <= 0.6)
+    {
+      int rng = (int) (Math.random() * 4) + 1;
+      if (rng == 4)
+      {
+        System.out.print("\n" + healer.getName() + " heals " + target.getName() + " " + healer.healOtherAmount() + " HP!\n");
+        healer.healOther(target);
+      }
+      else
+      {
+        System.out.print("\n" + healer.getName() + " attacks you!\n");
+        System.out.println("You take " + player.takeDamage(healer.getStatATK()) + " damage.\n");
+      }
+    }
+    else
+    {
+      System.out.print("\n" + healer.getName() + " attacks you!\n");
+      System.out.println("You take " + player.takeDamage(healer.getStatATK()) + " damage.\n");
+    }
   }
 
   public void newTurn()
@@ -191,7 +534,7 @@ public class Combat {
 
   public void battleEnd()
   {
-    System.out.println("\nBattle Over.");
+    System.out.println("Battle Over.\n");
   }
   
 }
