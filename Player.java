@@ -40,11 +40,11 @@ public class Player extends Mob {
     money = 0;
   }
 
-  public getMoney() {
+  public int getMoney() {
     return money;
   }
 
-  public setMoney(int num) {
+  public void setMoney(int num) {
     money = money + num;
   }
 
