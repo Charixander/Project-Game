@@ -40,6 +40,17 @@ public class Consumable extends Item {
     }
   }
 
+  public Consumable (String name, String description, int level, int price, int hp, int turns)
+  {
+    super(name, description, level, price);
+    healthRestore = hp;
+    turnDuration = turns;
+    if (turnDuration < 1)
+    {
+      turnDuration = 1;
+    }
+  }
+  
   public int getHeal()
   {
     return healthRestore;
