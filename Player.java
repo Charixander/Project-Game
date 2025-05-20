@@ -40,6 +40,14 @@ public class Player extends Mob {
     money = 0;
   }
 
+  public getMoney() {
+    return money;
+  }
+
+  public setMoney(int num) {
+    money = money + num;
+  }
+
   public Item[] getInventory()
   {
     return inventory;
