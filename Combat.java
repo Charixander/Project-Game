@@ -2,6 +2,10 @@ import java.util.Scanner;
 
 public class Combat {
 
+  /**
+  * Manages and handles combat encounters between the Player & 1 to 3 Enemies.
+  * Handled with turn-based interaction, item usage, healing logic, till one side alive.
+  */
   private Player player;
   private Enemy enemy;
   private Enemy enemy2;
@@ -10,6 +14,14 @@ public class Combat {
   private boolean playerTurn;
   private Consumable playerEffect;
 
+
+  /**
+  * Constructs a combat encounter with one enemy.
+  * @param player; the Player.
+  * @param enemy; the Enemy.
+  * Pre: Player & Enemy are not null
+  * Post: Initializes a 1v1 combat setup.
+  */
   public Combat (Player player, Enemy enemy) 
   {
     this.player = player;
@@ -21,6 +33,14 @@ public class Combat {
     playerEffect = null;
   }
 
+  /**
+  * Constructs a combat encounter with two enemies.
+  * @param player; the Player.
+  * @param enemy; the first Enemy.
+  * @param enemy2; the second Enemy.
+  * Pre: Player & Enemy + Enemy2 are not null
+  * Post: Initializes a 1v2 combat setup.
+  */
   public Combat (Player player, Enemy enemy, Enemy enemy2)
   {
     this.player = player;
@@ -32,6 +52,15 @@ public class Combat {
     playerEffect = null;
   }
 
+  /**
+  * Constructs a combat encounter with three enemies.
+  * @param player; the Player.
+  * @param enemy; the first Enemy.
+  * @param enemy2; the second Enemy.
+  * @param enemy3; the third Enemy.
+  * Pre: Player & Enemy + Enemy2 + Enemy 3are not null
+  * Post: Initializes a 1v3 combat setup.
+  */
   public Combat (Player player, Enemy enemy, Enemy enemy2, Enemy enemy3)
   {
     this.player = player;
@@ -43,6 +72,11 @@ public class Combat {
     playerEffect = null;
   }
 
+  /**
+  * Begins the combat loop. Run until either the player or all enemies are defeated. 
+  * Pre: All enemies and player are pre-initialized and alive. Enemy is not null.
+  * Post: Ends with either player or all enemies defeated, calling battleEnd();
+  */
   public void combatBegin()
   {
     System.out.println("\nCombat Sparked!\n");
@@ -99,6 +133,13 @@ public class Combat {
     }
   }
 
+  /**
+  * Allows the player to attack or use an item.
+  * Handles effects being applied for future rounds.
+  * Handles the interactions with the player's choice.
+  * Pre: Player must be alive.
+  * Post: Player does one action, attacking an enemy and updating them or using an item on the player.
+  */
   public void playerTurn()
   {
     System.out.println("\nYour turn!\n\n");
@@ -355,6 +396,12 @@ public class Combat {
     input.close();
   }
 
+  /**
+  * Handles an enemy's turn, deciding to attack or a heal ability based on conditions.
+  * @parem e; the enemy taking the turn.
+  * Pre: The enemy must be one of the initialized enemies.
+  * Post: Enemy either attacks the player or heals itself/another.
+  */
   public void enemyTurn(Enemy e)
   {
     String name = e.getName();
@@ -557,6 +604,15 @@ public class Combat {
     }
   }
 
+  /**
+  * Checks if the enemy should heal another target based on the target's health and rng.
+  * Heals the target if conditions are meant.
+  * Otherwise, or if rng rolls against, they just attack.
+  * @param healer; the enemy trying to heal.
+  * @param target; the enemy being evaluated and or healed.
+  * Pre: Healer & Target must be alive.
+  * Post: Target may be healed, or player is attacked as normal.
+  */
   private void healCheck(Enemy healer, Enemy target)
   {
     double value = 1.0 * target.getHealth() / target.getStatHP();
@@ -595,6 +651,12 @@ public class Combat {
     }
   }
 
+  /**
+  * Processes the start of a new turn.
+  * Applies active effects of healing for the player.
+  * Pre: Called once per full round. 
+  * Post: Player may recieve regenerative healing and update the effect duration.
+  */
   public void newTurn()
   {
     if (playerEffect != null)
@@ -608,6 +670,10 @@ public class Combat {
     }
   }
 
+  /**
+  * Ends the combat sequence, printing the end message.
+  * Post: Signals that combat has concluded. (Future: Include XP/Money or alternate text for who won)
+  */
   public void battleEnd()
   {
     System.out.println("Battle Over.\n");
