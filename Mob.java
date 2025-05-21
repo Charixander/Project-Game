@@ -149,5 +149,9 @@ public class Mob {
     }
     return damage;
   }
+
+  public String toString() {
+    return name + "\n HP: " + healthStat + "     ATK: " + attackStat + "     DEF: " + defenseStat;
+  }
   
 }
