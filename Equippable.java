@@ -44,7 +44,7 @@ public class Equippable extends Item {
 
   public Equippable (String name, int stat, boolean isWeapon, int level)
   {
-    super(name, level);
+    super(name, "an item", level);
     this.isWeapon = isWeapon;
     if (isWeapon)
     {
