@@ -40,12 +40,24 @@ public class Player extends Mob {
     money = 0;
   }
 
-  public int getMoney() {
+  public int getMoney()
+  {
     return money;
   }
 
-  public void setMoney(int num) {
-    money = money + num;
+  public void setMoney(int num) 
+  {
+    money += num;
+  }
+
+  public double getXP()
+  {
+    return xp;
+  }
+
+  public void setXP(int num)
+  {
+    xp += num;
   }
 
   public Item[] getInventory()
@@ -53,10 +65,6 @@ public class Player extends Mob {
     return inventory;
   }
 
-  public Item getInventory(int index) {
-    return inventory[index];
-  }
-  
   public void setInventory(Item item, int index)
   {
     inventory[index-1] = item;
