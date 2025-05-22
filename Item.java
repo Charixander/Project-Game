@@ -10,6 +10,7 @@ public class Item {
     name = "N/A";
     description = "Placeholder";
     level = 1;
+    price = 1;
   }
 
   public Item (String name)
@@ -17,6 +18,7 @@ public class Item {
     this.name = name;
     description = "An item.";
     level = 1;
+    price = 1;
   }
 
   public Item (String name, String description)
@@ -24,6 +26,7 @@ public class Item {
     this.name = name;
     this.description = description;
     level = 1;
+    price = 1;
   }
 
   public Item (String name, int level)
@@ -31,6 +34,15 @@ public class Item {
     this.name = name;
     this.description = "An item.";
     this.level = level;
+    price = 1;
+  }
+
+  public Item (String name, String description, int level)
+  {
+    this.name = name;
+    this.description = description;
+    this.level = level;
+    price = 1;
   }
 
   public Item (String name, String description, int level, int price)
