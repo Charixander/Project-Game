@@ -45,15 +45,17 @@ public class Shop {
     boolean flag = true;
     int pick = 0;
     while(flag) {
-      System.out.println("\n|| [ Buy ] || [ Sell ] || [ Leave ] ||\n");   
+      System.out.println("\n|| [ Buy ] || [ Sell ] || [ Leave ] || " + "$" + player.getMoney() + " ||\n");
       String action = input.nextLine();
-
+      
       if (action.toLowerCase().equals("buy")) {
         System.out.println(getInfo());
         pick = Integer.parseInt(input.nextLine());
         if (pick > 0 && pick < 5) {
           if (dialougeBuy(pick) > 0) {
-            flag = false;
+            player.updateInventory();
+            System.out.println("Thank you for the purchase!");
+            input.nextLine();
           } else {
             System.out.println("You do not have enough money to buy this.");
           }
@@ -71,7 +73,7 @@ public class Shop {
             player.setMoney((player.getInventory(pick - 1).getPrice()) / 2);
             player.setInventory(null, pick);
             player.updateInventory();
-            flag = false;
+            System.out.println("Thanks for doing business!\n");
           }
           
         } else {
@@ -92,12 +94,11 @@ public class Shop {
   * Post: Player may buy items for money.
   */
   public int dialougeBuy(int interact) {
-    if (player.getMoney() > inventory[interact - 1].getPrice()) {
+    if (player.getMoney() >= inventory[interact - 1].getPrice()) {
       System.out.println(player.openInventory());
       System.out.println("Which slot will you choose to replace?");
       player.setInventory(inventory[interact - 1], input.nextInt());
       player.setMoney(0 - (inventory[interact - 1].getPrice()));
-      inventory[interact - 1] = null;
       return 1;
     } else {
       return -1;
@@ -110,7 +111,7 @@ public class Shop {
   * Post: The health potion is created and returned.
   */
   private Consumable generateHealth() {
-    Consumable health = new Consumable("Health Potion", "A health potion.", Floor.getLevel(), 5, 1);
+    Consumable health = new Consumable("Health Potion", "A health potion.", Floor.getLevel(), 5 * Floor.getLevel(), 5, 1);
     return health;
   }
   
@@ -120,7 +121,7 @@ public class Shop {
   * Post: The regeneration potion is created and returned.
   */
   private Consumable generateRegen() {
-    Consumable regen = new Consumable("Regeneration Potion", "A regeneration potion.", Floor.getLevel(), 5, 4);
+    Consumable regen = new Consumable("Regeneration Potion", "A regeneration potion.", Floor.getLevel(), 15 * Floor.getLevel(), 5, 3);
     return regen;
   }
 
@@ -130,7 +131,7 @@ public class Shop {
   * Post: The armor is created and returned.
   */
   private Equippable generateArmor() {
-    Equippable armor = new Equippable("Armor", "A piece of armor.", Floor.getLevel(), 10, 5, false);
+    Equippable armor = new Equippable("Armor", "A piece of armor.", Floor.getLevel(), 20 * Floor.getLevel(), 5, false);
       return armor;
   }
 
@@ -140,7 +141,7 @@ public class Shop {
   * Post: The weapon is created and returned.
   */
   private Equippable generateWeapon() {
-    Equippable weapon = new Equippable("Weapon", "A weapon.", Floor.getLevel(), 10, 5, true);
+    Equippable weapon = new Equippable("Weapon", "A weapon.", Floor.getLevel(), 20 * Floor.getLevel(), 5, true);
     return weapon;
   }
 
@@ -152,7 +153,11 @@ public class Shop {
   public String getInfo() {
     String info = "";
     for (int i = 0; i < inventory.length; i++) {
-      info += "[" + (i + 1) + "]" + " | (" + inventory[i].getName() + ") |\n";
+      if (inventory[i] == null) {
+        info += "[" + (i + 1) + "]" + " | (" + "N/A" + " || $" + inventory[i].getPrice() + " )" + " |\n";
+      } else {
+        info += "[" + (i + 1) + "]" + " | (" + inventory[i].getName() + " || $" + inventory[i].getPrice() + " )" + " |\n";
+      }
     }
     return info;
   }
