@@ -71,9 +71,9 @@ public class Shop {
             System.out.println("Nothing to sell in this slot.\n");
           } else {
             player.setMoney((player.getInventory(pick - 1).getPrice()) / 2);
+            System.out.println("Thanks for doing business! $" + player.getInventory(pick - 1).getPrice() / 2 + " returned.\n");
             player.setInventory(null, pick);
             player.updateInventory();
-            System.out.println("Thanks for doing business!\n");
           }
           
         } else {
