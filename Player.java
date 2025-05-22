@@ -1,14 +1,16 @@
 public class Player extends Mob {
 
   private int level;
-  private double xp;
+  private int xp;
+  private int xpCap;
   Item[] inventory = new Item[10];
   private int money;
 
   public Player ()
   {
     level = 1;
-    xp = 0.0;
+    xp = 0;
+    xpCap = 100;
     inventory = new Item[10];
     money = 0;
   }
@@ -17,7 +19,8 @@ public class Player extends Mob {
   {
     super(name);
     level = 1;
-    xp = 0.0;
+    xp = 0;
+    xpCap = 100;
     inventory = new Item[10];
     money = 0;
   }
@@ -26,7 +29,8 @@ public class Player extends Mob {
   {
     super(name, HP, ATK, DEF, null, null);
     level = 1;
-    xp = 0.0;
+    xp = 0;
+    xpCap = 100;
     inventory = new Item[10];
     money = 0;
   }
@@ -35,7 +39,8 @@ public class Player extends Mob {
   {
     super(name, HP, ATK, DEF, weapon, armor);
     level = 1;
-    xp = 0.0;
+    xp = 0;
+    xpCap = 100;
     inventory = new Item[10];
     money = 0;
   }
@@ -50,7 +55,7 @@ public class Player extends Mob {
     money += num;
   }
 
-  public double getXP()
+  public int getXP()
   {
     return xp;
   }
@@ -58,6 +63,35 @@ public class Player extends Mob {
   public void setXP(int num)
   {
     xp += num;
+    while (xp > xpCap)
+    {
+      xp -= xpCap;
+      levelUp();
+    }
+  }
+
+  public int getMaxXP()
+  {
+    return xpCap;
+  }
+
+  public int getLevel()
+  {
+    return level;
+  }
+  
+  public void levelUp()
+  {
+    level++;
+    xpCap *= 1.5;
+    double temp = super.getStatHP() * 1.5;
+    super.setHP((int) temp);
+    temp = super.getStatATK() * 1.5;
+    super.setATK((int) temp);
+    temp = super.getStatDEF() * 1.5;
+    super.setDEF((int) temp);
+
+    System.out.println("You leveled up!\n" + (level-1) + " --> " + level + "\n");
   }
 
   public Item[] getInventory()
