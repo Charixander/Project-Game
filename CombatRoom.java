@@ -51,15 +51,17 @@ public class CombatRoom extends Room {
         defense = 1;
       }
 
-    
+    int MonsterDifficulty = (attack+defense+(health/5));
     String name = startOfName[randomStart] + endOfName[randomEnd] + " the " + enemyType;
+    int gold = (int)(Math.random()*MonsterDifficulty) + MonsterDifficulty/2;
     for(int i = 0; i < random; i++) {
-      enemies.add(new Enemy(name, health, attack, defense));
+      enemies.add(new Enemy(name, health, attack, defense, MonsterDifficulty, gold, null, null));
       while(name.equals(startOfName[randomStart] + endOfName[randomEnd] + " the " + enemyType)) {
       randomStart = (int)(Math.random()*startOfName.length);
       randomEnd = (int)(Math.random()*endOfName.length);
       }
        name = startOfName[randomStart] + endOfName[randomEnd] + " the " + enemyType;
+       gold = (int)(Math.random()*MonsterDifficulty) + MonsterDifficulty/2;
     }
   }
 
