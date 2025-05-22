@@ -29,18 +29,7 @@ public class Consumable extends Item {
     turnDuration = turns;
   }
 
-  public Consumable (String name, String description, int level, int hp, int turns)
-  {
-    super(name, description, level);
-    healthRestore = hp;
-    turnDuration = turns;
-    if (turnDuration < 1)
-    {
-      turnDuration = 1;
-    }
-  }
-
-  public Consumable (String name, String description, int level, int price, int hp, int turns)
+  public Consumable (String name, String description, int level, int hp, int turns, int price)
   {
     super(name, description, level, price);
     healthRestore = hp;
@@ -50,7 +39,7 @@ public class Consumable extends Item {
       turnDuration = 1;
     }
   }
-  
+
   public int getHeal()
   {
     return healthRestore;
