@@ -88,4 +88,8 @@ public class Enemy extends Mob {
   {
     e.addHealth(healOthers);
   }
+
+  public String toString() {
+    return super.toString() + "\n" + " XP: " + xpReward + "      Gold: " +  moneyReward;
+  }
 }
