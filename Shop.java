@@ -75,7 +75,6 @@ public class Shop {
             player.setInventory(null, pick);
             player.updateInventory();
           }
-          
         } else {
           System.out.println("Invalid input.\n");
         }
@@ -96,8 +95,12 @@ public class Shop {
   public int dialougeBuy(int interact) {
     if (player.getMoney() >= inventory[interact - 1].getPrice()) {
       System.out.println(player.openInventory());
-      System.out.println("Which slot will you choose to replace?");
-      player.setInventory(inventory[interact - 1], input.nextInt());
+      System.out.println("Which slot number will you choose to replace?");
+      int slotNum = input.nextInt();
+      if (slotNum > 10 || slotNum < 1) {
+        slotNum = 10;
+      }
+      player.setInventory(inventory[interact - 1], slotNum);
       player.setMoney(0 - (inventory[interact - 1].getPrice()));
       return 1;
     } else {
