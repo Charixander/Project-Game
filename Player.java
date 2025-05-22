@@ -83,14 +83,14 @@ public class Player extends Mob {
   public void levelUp()
   {
     level++;
-    xpCap *= 1.5;
-    double temp = super.getStatHP() * 1.5;
+    xpCap *= 1.2;
+    double temp = super.getStatHP() * 1.2;
     super.setHP((int) temp);
-    temp = super.getHealth() * 1.25;
+    temp = super.getHealth() * 1.1;
     super.setCurrentHP((int) temp);
-    temp = super.getStatATK() * 1.5;
+    temp = super.getBaseATK() * 1.2;
     super.setATK((int) temp);
-    temp = super.getStatDEF() * 1.5;
+    temp = super.getBaseDEF() * 1.2;
     super.setDEF((int) temp);
 
     System.out.println("You leveled up!\n" + (level-1) + " --> " + level + "\n");
