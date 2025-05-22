@@ -68,6 +68,46 @@ public class Mob {
     this.armor = armor;
   }
 
+  public void setHP(int amount)
+  {
+    healthStat = amount;
+    if (healthStat < 1)
+    {
+      healthStat = 1;
+    }
+    if (currentHealth > healthStat)
+    {
+      currentHealth = healthStat;
+    }
+    else if (currentHealth < 1)
+    {
+      currentHealth = 1;
+    }
+  }
+
+  public void setCurrentHP(int amount)
+  {
+    currentHealth = amount;
+    if (currentHealth < 1)
+    {
+      currentHealth = 1;
+    }
+    if (currentHealth > healthStat)
+    {
+      currentHealth = healthStat;
+    }
+  }
+
+  public void setATK(int amount)
+  {
+    attackStat = amount;
+  }
+
+  public void setDEF(int amount)
+  {
+    defenseStat = amount;
+  }
+
   public String getName()
   {
     return name;
@@ -153,5 +193,4 @@ public class Mob {
   public String toString() {
     return name + "\n HP: " + healthStat + "     ATK: " + attackStat + "     DEF: " + defenseStat;
   }
-  
 }
