@@ -42,9 +42,9 @@ public class Equippable extends Item {
     }
   }
 
-  public Equippable (String name, String description, int level, int stat, boolean isWeapon)
+  public Equippable (String name, int stat, boolean isWeapon, int level)
   {
-    super(name, description, level);
+    super(name, level);
     this.isWeapon = isWeapon;
     if (isWeapon)
     {
@@ -58,7 +58,7 @@ public class Equippable extends Item {
     }
   }
 
-  public Equippable (String name, String description, int level, int price, int stat, boolean isWeapon)
+  public Equippable (String name, String description, int level, int stat, boolean isWeapon, int price)
   {
     super(name, description, level, price);
     this.isWeapon = isWeapon;
@@ -76,12 +76,16 @@ public class Equippable extends Item {
 
   public int getAttack()
   {
-    return baseAttack;
+    int value = baseAttack;
+    value *= super.getLevel();
+    return value;
   }
 
   public int getDefense()
   {
-    return baseDefense;
+    int value = baseDefense;
+    value *= super.getLevel();
+    return value;
   }
 
   public boolean isWeapon()
@@ -95,11 +99,11 @@ public class Equippable extends Item {
     text += "\n\n";
     if (isWeapon)
     {
-      text += "Increases ATK by " + baseAttack;
+      text += "Attack Power: " + baseAttack;
     }
     else 
     {
-      text += "Increases DEF by " + baseDefense;
+      text += "Defense Power: " + baseDefense;
     }
 
     return text;
