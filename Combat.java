@@ -110,7 +110,7 @@ public class Combat {
         {
           enemyTurn(enemy);
         }
-        if (enemy2.isAlive())
+        if (player.isAlive() && enemy2.isAlive())
         {
           enemyTurn(enemy2);
         }
@@ -134,11 +134,11 @@ public class Combat {
         {
           enemyTurn(enemy);
         }
-        if (enemy2.isAlive())
+        if (player.isAlive() && enemy2.isAlive())
         {
           enemyTurn(enemy2);
         }
-        if (enemy3.isAlive())
+        if (player.isAlive() && enemy3.isAlive())
         {
           enemyTurn(enemy3);
         }
@@ -722,7 +722,7 @@ public class Combat {
     }
     else
     {
-      System.out.println("\n" + player.getName() + " has fallen.\nYou Lose.\n");
+      System.out.println("\n" + player.getName() + " has fallen.\n\n\nYou Lose.\n");
       // After combat runs, if player is dead you need to break the code of the runner.
     }
   }
