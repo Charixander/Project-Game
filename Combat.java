@@ -702,21 +702,29 @@ public class Combat {
       System.out.println("\nYou won!\n");
       int totalXP = enemy.getXP();
       int totalMoney = enemy.getMoney();
+      double multi = 1.0;
       if (enemy2 != null)
       {
         totalXP += enemy2.getXP();
         totalMoney += enemy2.getMoney();
+        multi = 1.2;
       }
       if (enemy3 != null)
       {
         totalXP += enemy3.getXP();
         totalMoney += enemy3.getMoney();
+        multi = 1.4;
       }
+
+      double temp = (double) totalXP;
+      temp *= multi;
+      totalXP = temp;
+      temp = (double) totalMoney;
+      temp *= multi;
+      totalMoney = temp;
 
       System.out.println("\nYou earned $" + totalMoney + "!\n");
       System.out.println("You earned " + totalXP + " xp!\n");
-
-      int currentLv = player.getLevel();
 
       player.setXP(totalXP);
     }
