@@ -86,6 +86,8 @@ public class Player extends Mob {
     xpCap *= 1.5;
     double temp = super.getStatHP() * 1.5;
     super.setHP((int) temp);
+    temp = super.getHealth() * 1.25;
+    super.setCurrentHP((int) temp);
     temp = super.getStatATK() * 1.5;
     super.setATK((int) temp);
     temp = super.getStatDEF() * 1.5;
