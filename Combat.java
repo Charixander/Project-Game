@@ -718,10 +718,10 @@ public class Combat {
 
       double temp = (double) totalXP;
       temp *= multi;
-      totalXP = temp;
+      totalXP = (int) temp;
       temp = (double) totalMoney;
       temp *= multi;
-      totalMoney = temp;
+      totalMoney = (int) temp;
 
       System.out.println("\nYou earned $" + totalMoney + "!\n");
       System.out.println("You earned " + totalXP + " xp!\n");
