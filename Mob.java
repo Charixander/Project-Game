@@ -132,12 +132,22 @@ public class Mob {
     return attackStat;
   }
 
+  public int getBaseATK()
+  {
+    return attackStat;
+  }
+
   public int getStatDEF()
   {
     if (armor != null)
     {
       return defenseStat + armor.getDefense();
     }
+    return defenseStat;
+  }
+
+  public int getBaseDEF()
+  {
     return defenseStat;
   }
 
