@@ -50,13 +50,17 @@ public class Shop {
       
       if (action.toLowerCase().equals("buy")) {
         System.out.println(getInfo());
-        pick = Integer.parseInt(input.nextLine());
+        String n1 = input.nextLine();
+          if (n1.matches("-?\\d+"))
+          {
+            pick = Integer.parseInt(n1);
+          }
         if (pick > 0 && pick < 5) {
-          if (dialougeBuy(pick) > 0) {
+          int check = dialougeBuy(pick);
+          if (check > 0) {
             player.updateInventory();
             System.out.println("Thank you for the purchase!");
-            input.nextLine();
-          } else {
+          } else if (check < 0){
             System.out.println("You do not have enough money to buy this.");
           }
         } else {
@@ -65,7 +69,11 @@ public class Shop {
       } else if (action.toLowerCase().equals("sell")) {
         System.out.println(player.openInventory());
         System.out.println("| Which slot would like to sell? |");
-        pick = Integer.parseInt(input.nextLine());
+        String n2 = input.nextLine();
+          if (n2.matches("-?\\d+"))
+          {
+            pick = Integer.parseInt(n2);
+          }
         if (pick > 0 && pick < 11) {
           if (player.getInventory(pick - 1) == null) {
             System.out.println("Nothing to sell in this slot.\n");
@@ -96,7 +104,14 @@ public class Shop {
     if (player.getMoney() >= inventory[interact - 1].getPrice()) {
       System.out.println(player.openInventory());
       System.out.println("Which slot number will you choose to replace?");
-      int slotNum = input.nextInt();
+      int slotNum = 0;
+      String n3 = input.nextLine();
+          if (n3.matches("-?\\d+"))
+          {
+            slotNum = Integer.parseInt(n3);
+          } else {
+            return 0;
+          }
       if (slotNum > 10 || slotNum < 1) {
         slotNum = 10;
       }
