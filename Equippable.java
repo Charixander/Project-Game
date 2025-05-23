@@ -46,7 +46,7 @@ public class Equippable extends Item {
 
   public Equippable (String name, int stat, boolean isWeapon, int level)
   {
-    super(name, "an item", level);
+    super(name, level);
     this.isWeapon = isWeapon;
     if (isWeapon)
     {
@@ -76,11 +76,6 @@ public class Equippable extends Item {
     }
   }
 
-  public static String randomDescription() {
-    int random = (int)(Math.random()*ItemDescriptions.length);
-    return ItemDescriptions[random];
-  }
-  
   public int getAttack()
   {
     int value = baseAttack;
@@ -100,18 +95,25 @@ public class Equippable extends Item {
     return isWeapon;
   }
 
+  public static String randomDescription() {
+    int random = (int)(Math.random()*ItemDescriptions.length);
+    return ItemDescriptions[random];
+  }
+
   public String info()
   {
     String text = super.info();
     text += "\n\n";
     if (isWeapon)
     {
-      text += "Attack Power: " + baseAttack;
+      text += "Attack Power: " + baseAttack + "\n";
     }
     else 
     {
-      text += "Defense Power: " + baseDefense;
+      text += "Defense Power: " + baseDefense + "\n";
     }
+
+    text += "\n Value Worth: $ " + super.getPrice() + "\n\n";
 
     return text;
   }
