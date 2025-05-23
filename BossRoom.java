@@ -29,6 +29,10 @@ public class BossRoom extends Room {
     
     }
 
+    public String getRoomContents() {
+      return getDesc();
+    }
+
     public String getBoss() {
       return boss.toString();
     }
