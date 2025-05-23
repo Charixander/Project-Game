@@ -41,5 +41,32 @@ public class BossRoom extends Room {
       }
     }
 
+    public void runRoom(Player player) {
+     System.out.println("A giant door lies in front of you, you feel a powerful aura behind it...");
+     Scanner input = new Scanner(System.in);
+     boolean flag = true;
+     int random = 0;
+    while (flag)
+    {
+      System.out.println("\n|| [ Fight ] || [ Inventory ] ||\n");
+      String action = input.nextLine();
+      if(action.toLowerCase().equals("fight")) {
+        flag = false; 
+        System.out.println(getDesc());
+        Combat bossFight = new Combat(player, boss);
+        bossFight.combatBegin();
+        if(DungeonManager.getGameAlive()) {
+          //UPDATE HERE
+          System.out.println("add the treasure to inventory here");
+        }
+      } else if(action.toLowerCase().equals("Inventory")) {
+                  //UPDATE HERE
+        System.out.println("need to add inventory option here");
+      } else {
+        System.out.println("invalid Input.");
+      }
+    }
+}
+
   
 }
