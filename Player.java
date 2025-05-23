@@ -12,7 +12,7 @@ public class Player extends Mob {
   {
     level = 1;
     xp = 0;
-    xpCap = 100;
+    xpCap = 20;
     inventory = new Item[10];
     money = 0;
   }
@@ -22,7 +22,7 @@ public class Player extends Mob {
     super(name);
     level = 1;
     xp = 0;
-    xpCap = 100;
+    xpCap = 20;
     inventory = new Item[10];
     money = 0;
   }
@@ -32,7 +32,7 @@ public class Player extends Mob {
     super(name, HP, ATK, DEF, null, null);
     level = 1;
     xp = 0;
-    xpCap = 100;
+    xpCap = 20;
     inventory = new Item[10];
     money = 0;
   }
@@ -42,7 +42,7 @@ public class Player extends Mob {
     super(name, HP, ATK, DEF, weapon, armor);
     level = 1;
     xp = 0;
-    xpCap = 100;
+    xpCap = 20;
     inventory = new Item[10];
     money = 0;
   }
@@ -126,7 +126,7 @@ public class Player extends Mob {
   public void levelUp()
   {
     level++;
-    xpCap *= 1.2;
+    xpCap *= 1.4;
     double temp = super.getStatHP() * 1.2;
     super.setHP((int) temp);
     temp = super.getHealth() * 1.1;
