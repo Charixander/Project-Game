@@ -130,7 +130,7 @@ public class Shop {
   */
   private Consumable generateHealth() {
     Consumable health = new Consumable("Health Potion", "A health potion.", Floor.getLevel(), 5 * Floor.getLevel(), 5 + Floor.getLevel(), 1);
-    health.setDescription(health.getDescription() + " Heals for " + health.getHeal() + ".");
+    health.setDescription(health.getDescription() + " Heals for " + health.getHeal() + " HP.");
     return health;
   }
   
@@ -151,8 +151,8 @@ public class Shop {
   * Post: The armor is created and returned.
   */
   private Equippable generateArmor() {
-    Equippable armor = new Equippable("Armor", "A piece of armor.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), false);
-    armor.setDescription(armor.getDescription() + " Effects defense by " + armor.getDefense() + ".");  
+    Equippable armor = new Equippable(Equippable.randomDescription() + " Armor", "A piece of armor.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), false);
+    armor.setDescription(armor.getDescription() + " Affects defense by " + armor.getDefense() + ".");  
     return armor;
   }
 
@@ -162,8 +162,8 @@ public class Shop {
   * Post: The weapon is created and returned.
   */
   private Equippable generateWeapon() {
-    Equippable weapon = new Equippable("Weapon", "A weapon.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), true);
-    weapon.setDescription(weapon.getDescription() + " Effects attack by " + weapon.getAttack() + ".");  
+    Equippable weapon = new Equippable(Equippable.randomDescription() + " Sword", "A weapon.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), true);
+    weapon.setDescription(weapon.getDescription() + " Affects attack by " + weapon.getAttack() + ".");  
     return weapon;
   }
 
