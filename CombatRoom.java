@@ -98,6 +98,25 @@ public class CombatRoom extends Room {
     }
   }
 
+  private void postCombat() {
+    boolean flag = true;
+     int random = 0;
+    Scanner input = new Scanner(System.in);
+    while (flag) {
+      System.out.println("The room is now empty, what do you want to do now?");
+       System.out.println("\n|| [ Leave ] || [ Inventory ] ||\n");
+       String action = input.nextLine();
+        if(action.toLowerCase().equals("leave")) {
+          flag = false;
+          System.out.println("you walk through the hallway to the next door and open it...");
+    } else if(action.toLowerCase().equals("inventory")) {
+            //UPDATE HERE
+    } else {
+       System.out.println("invalid Input."); 
+    }
+  }
+}
+
   public void runRoom(Player player) {
      System.out.println(getDesc());
      Scanner input = new Scanner(System.in);
@@ -114,6 +133,9 @@ public class CombatRoom extends Room {
         if(random <= 2) {
           System.out.println("you were ambushed by " + getRoomContents());
           runCombat(player);
+          if(DungeonManager.getGameAlive()) {
+            postCombat();
+          }
         } else {
           System.out.println("you passed the room peacefully...");
         }
@@ -131,17 +153,27 @@ public class CombatRoom extends Room {
                 if(action.toLowerCase().equals("attack")) {
                   newFlag = false;
                   runCombat(player);
+                  if(DungeonManager.getGameAlive()) {
+                   postCombat();
+                  }
                 } else if(action.toLowerCase().equals("leave")) {
                   newFlag = false;
                   System.out.print("You move on to the next room.");
+                } else {
+                  System.out.println("invalid Input.");
                 }
              }
         } else {
           System.out.println("They saw you at the same time!");
           runCombat(player);
+          if(DungeonManager.getGameAlive()) {
+            postCombat();
+          }
         }
       
-      } else {
+      }else if(action.toLowerCase().equals("inventory")) {
+        //UPDATE HERE
+      }else {
         System.out.println("invalid Input.");
       }
     }
