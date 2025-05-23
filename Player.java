@@ -47,21 +47,41 @@ public class Player extends Mob {
     money = 0;
   }
 
+  /**
+ * Gets the player's current money.
+ * @return player's money.
+ */
   public int getMoney()
   {
     return money;
   }
 
+  /**
+ * Adds to the player's money.
+ * @param num; the amount to add (positive or negative).
+ * Pre: num is a valid integer.
+ * Post: Player's money is updated.
+ */
   public void setMoney(int num) 
   {
     money += num;
   }
 
+  /**
+ * Gets the player's current XP.
+ * @return XP value.
+ */
   public int getXP()
   {
     return xp;
   }
 
+  /**
+ * Adds XP and handles level-up if threshold is met.
+ * @param num; amount of XP to add.
+ * Pre: num >= 0
+ * Post: XP increases and player may level up.
+ */
   public void setXP(int num)
   {
     boolean flag = false;
@@ -79,16 +99,30 @@ public class Player extends Mob {
     }
   }
 
+  /**
+ * Returns the XP cap required for next level.
+ * @return XP cap.
+ */
   public int getMaxXP()
   {
     return xpCap;
   }
 
+  /**
+ * Returns the player's current level.
+ * @return current level.
+ */
   public int getLevel()
   {
     return level;
   }
-  
+
+  /**
+ * Handles player level up.
+ * Increases base stats and XP cap.
+ * Pre: XP exceeds cap.
+ * Post: Player level increases and stats grow.
+ */
   public void levelUp()
   {
     level++;
@@ -103,6 +137,11 @@ public class Player extends Mob {
     super.setDEF((int) temp);
   }
 
+  /**
+ * Checks if there is space available in the inventory.
+ * @return true if space exists.
+ * Post: Inventory is compacted before check.
+ */
   public boolean checkInventory()
   {
     boolean flag = false;
@@ -118,6 +157,12 @@ public class Player extends Mob {
     return flag;
   }
 
+  /**
+ * Prompts the player to replace an existing item when inventory is full.
+ * @param item; the new item to insert.
+ * Pre: Inventory is full.
+ * Post: Player replaces or discards item.
+ */
   private void replaceInventory(Item item)
   {
     Scanner input = new Scanner(System.in);
@@ -158,7 +203,13 @@ public class Player extends Mob {
     }
     input.close();
   }
-  
+
+  /**
+ * Adds item to inventory or prompts for replacement if full.
+ * @param item; the item to add.
+ * Pre: item is not null.
+ * Post: Inventory updated or replacement prompt is triggered.
+ */
   public void addInventory(Item item)
   {
     updateInventory();
@@ -178,20 +229,40 @@ public class Player extends Mob {
     }
   }
 
+  /**
+ * Gets the player's inventory array.
+ * @return inventory array.
+ */
   public Item[] getInventory()
   {
     return inventory;
   }
 
-  public Item getInventory(int index) {
+  /**
+ * Gets the player's item at a specific inventory spot.
+ * @return item.
+ */
+  public Item getInventory(int index)
+  {
     return inventory[index];
   }
 
+  /**
+ * Sets a specific inventory slot.
+ * @param item; the item to place.
+ * @param index; 1-based index (1–10).
+ * Pre: Valid index within inventory range.
+ * Post: Inventory is updated at given slot.
+ */
   public void setInventory(Item item, int index)
   {
     inventory[index-1] = item;
   }
 
+  /**
+ * Updates inventory layout by pushing nulls to the right.
+ * Post: Inventory is sorted with non-null items on the left.
+ */
   public void updateInventory()
   {
     Item[] newInventory = new Item[inventory.length];
@@ -210,6 +281,11 @@ public class Player extends Mob {
     inventory = newInventory;
   }
 
+  /**
+ * Returns a formatted string of the inventory display.
+ * @return inventory layout string.
+ * Post: Compact layout of inventory is returned.
+ */
   public String openInventory()
   {
     updateInventory();
@@ -240,6 +316,10 @@ public class Player extends Mob {
     return text;
   }
 
+  /**
+ * Displays the player's current stats, level, money, and equipment.
+ * @return stats + equipment overview string.
+ */
   public String openStats()
   {
     String text = "";
@@ -285,12 +365,21 @@ public class Player extends Mob {
     return text;
   }
 
+  /**
+ * Displays both the stats and inventory to the console.
+ * Post: HUD info is printed to console.
+ */
   public void displayHud()
   {
     System.out.println(openStats());
     System.out.println(openInventory());
   }
 
+  /**
+ * Provides an interactive HUD interface for the player.
+ * Allows inspecting, equipping, discarding items.
+ * Post: Player can interact with equipped items and inventory.
+ */
   public void hud()
   {
     Scanner input = new Scanner(System.in);
