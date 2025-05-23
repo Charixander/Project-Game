@@ -1,3 +1,9 @@
+/*
+* Superclass for items player has.
+* Contains basic info of an item.
+*/
+
+
 public class Item {
 
   String name;
@@ -5,6 +11,7 @@ public class Item {
   int level;
   int price;
 
+  //constructors:
   public Item ()
   {
     name = "N/A";
@@ -53,6 +60,8 @@ public class Item {
     this.price = price;
   }
 
+  
+  //accessor methods:
   public String getName()
   {
     return name;
@@ -78,6 +87,7 @@ public class Item {
     return price;
   }
 
+  //prints the info of an item
   public String info()
   {
     String text = "\"" + name + "\"";
