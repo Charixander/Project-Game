@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CombatRoom extends Room {
     private ArrayList<Enemy> enemies;
+    private String enemyType;
     private String[] enemyList;
     private String[] startOfName;
     private String[] endOfName;
@@ -23,7 +25,6 @@ public class CombatRoom extends Room {
     int health = 1;
     int attack = 1;
     int defense = 1;
-    String enemyType = "";
 
     int random = (int)(Math.random()*enemyList.length);
     health = healthMultiplier[random]*getTotalRank();
@@ -55,7 +56,7 @@ public class CombatRoom extends Room {
     String name = startOfName[randomStart] + endOfName[randomEnd] + " the " + enemyType;
     int gold = (int)(Math.random()*MonsterDifficulty) + MonsterDifficulty/2;
     for(int i = 0; i < random; i++) {
-      enemies.add(new Enemy(name, health, attack, defense, MonsterDifficulty, gold, null, null));
+      enemies.add(new Enemy(name, health, attack, defense, MonsterDifficulty, gold));
       while(name.equals(startOfName[randomStart] + endOfName[randomEnd] + " the " + enemyType)) {
       randomStart = (int)(Math.random()*startOfName.length);
       randomEnd = (int)(Math.random()*endOfName.length);
@@ -74,7 +75,76 @@ public class CombatRoom extends Room {
     return result;
   }
 
-  
+    public String getRoomContents() {
+    if(enemies.size() == 1) {
+      return "a wondering "  + enemyType + "!";
+    } else if(enemies.size() == 2) {
+      return "a pair of " + enemyType + "s!";
+    } else {
+      return "a hoard of " + enemyType + "s!";
+    }
+  }
 
-  
+  private void runCombat(Player player) {
+    if(enemies.size() == 1) {
+      Combat combatA = new Combat(player, enemies.get(0));
+      combatA.combatBegin();
+    } else if(enemies.size() == 2) {
+      Combat combatB = new Combat(player, enemies.get(0), enemies.get(1));
+      combatB.combatBegin();
+    } else {
+      Combat combatC = new Combat(player, enemies.get(0), enemies.get(1), enemies.get(2));
+      combatC.combatBegin();
+    }
+  }
+
+  public void runRoom(Player player) {
+     System.out.println(getDesc());
+     Scanner input = new Scanner(System.in);
+     boolean flag = true;
+     int random = 0;
+    while (flag)
+    {
+      System.out.println("\n|| [ Sneak ] || [ Search ] || [ Inventory ] ||\n");
+      String action = input.nextLine();
+      
+      if(action.toLowerCase().equals("sneak")) {
+        flag = false;
+        random = (int)(Math.random()*10);
+        if(random <= 2) {
+          System.out.println("you were ambushed by " + getRoomContents());
+          runCombat(player);
+        } else {
+          System.out.println("you passed the room peacefully...");
+        }
+      
+      } else if(action.toLowerCase().equals("search")) {
+        flag = false;
+        System.out.println("You Spotted " + getRoomContents());
+        random = (int)(Math.random()*10);
+        if(random <= 2) {
+           System.out.println("They didn't notice you...");
+           boolean newFlag = true;
+             while(newFlag) {
+               System.out.println("\n|| [ Attack ] || [ Leave ] || [ Inventory ] || \n");
+               action = input.nextLine();
+                if(action.toLowerCase().equals("attack")) {
+                  newFlag = false;
+                  runCombat(player);
+                } else if(action.toLowerCase().equals("leave")) {
+                  newFlag = false;
+                  System.out.print("You move on to the next room.");
+                }
+             }
+        } else {
+          System.out.println("They saw you at the same time!");
+          runCombat(player);
+        }
+      
+      } else {
+        System.out.println("invalid Input.");
+      }
+    }
+}
+
 }
