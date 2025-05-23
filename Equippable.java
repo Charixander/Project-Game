@@ -3,6 +3,8 @@ public class Equippable extends Item {
   private int baseAttack;
   private int baseDefense;
   private boolean isWeapon;
+  private static String[] ItemDescriptions = {"Flamboyant", "Peculiar", "Shiny", "Massive", "Colorful", "Fancy", "Epic", "Demonic", "Worn out", "Interesting", "Monster", "Suspicious",
+                                             "Super", "Dense", "Weird Tasting", "Light"};
 
   public Equippable () 
   {
@@ -74,6 +76,11 @@ public class Equippable extends Item {
     }
   }
 
+  public static String randomDescription() {
+    int random = (int)(Math.random()*ItemDescriptions.length);
+    return ItemDescriptions[random];
+  }
+  
   public int getAttack()
   {
     int value = baseAttack;
