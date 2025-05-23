@@ -8,6 +8,10 @@ public class Shop {
   */
   
   Item[] inventory = new Item[4];
+  String desc1;
+  String desc2;
+  String desc3;
+  String desc4;
   Player player;
   
   Scanner input = new Scanner(System.in);
@@ -129,7 +133,8 @@ public class Shop {
   * Post: The health potion is created and returned.
   */
   private Consumable generateHealth() {
-    Consumable health = new Consumable("Health Potion", "A health potion.", Floor.getLevel(), 5 * Floor.getLevel(), 5, 1);
+    Consumable health = new Consumable("Health Potion", "A health potion.", Floor.getLevel(), 5 * Floor.getLevel(), 5 + Floor.getLevel(), 1);
+    health.setDescription(health.getDescription() + " Heals for " + health.getHeal() + ".");
     return health;
   }
   
@@ -139,7 +144,8 @@ public class Shop {
   * Post: The regeneration potion is created and returned.
   */
   private Consumable generateRegen() {
-    Consumable regen = new Consumable("Regeneration Potion", "A regeneration potion.", Floor.getLevel(), 15 * Floor.getLevel(), 5, 3);
+    Consumable regen = new Consumable("Regeneration Potion", "A regeneration potion.", Floor.getLevel(), 15 * Floor.getLevel(), 5, 3 + Floor.getLevel());
+    regen.setDescription(regen.getDescription() + " Heals for 5 for " + (3 + Floor.getLevel()) + " turns.");
     return regen;
   }
 
@@ -149,8 +155,9 @@ public class Shop {
   * Post: The armor is created and returned.
   */
   private Equippable generateArmor() {
-    Equippable armor = new Equippable("Armor", "A piece of armor.", Floor.getLevel(), 20 * Floor.getLevel(), 5, false);
-      return armor;
+    Equippable armor = new Equippable("Armor", "A piece of armor.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), false);
+    armor.setDescription(armor.getDescription() + " Effects defense by " + armor.getDefense() + ".");  
+    return armor;
   }
 
   /**
@@ -159,7 +166,8 @@ public class Shop {
   * Post: The weapon is created and returned.
   */
   private Equippable generateWeapon() {
-    Equippable weapon = new Equippable("Weapon", "A weapon.", Floor.getLevel(), 20 * Floor.getLevel(), 5, true);
+    Equippable weapon = new Equippable("Weapon", "A weapon.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), true);
+    weapon.setDescription(weapon.getDescription() + " Effects attack by " + weapon.getAttack() + ".");  
     return weapon;
   }
 
@@ -174,7 +182,7 @@ public class Shop {
       if (inventory[i] == null) {
         info += "[" + (i + 1) + "]" + " | (" + "N/A" + " || $" + inventory[i].getPrice() + " )" + " |\n";
       } else {
-        info += "[" + (i + 1) + "]" + " | (" + inventory[i].getName() + " || $" + inventory[i].getPrice() + " )" + " |\n";
+        info += "[" + (i + 1) + "]" + " | (" + inventory[i].getName() + " || " + inventory[i].getDescription() + " || $" + inventory[i].getPrice() + " )" + " |\n";
       }
     }
     return info;
