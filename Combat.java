@@ -731,6 +731,7 @@ public class Combat {
     else
     {
       System.out.println("\n" + player.getName() + " has fallen.\n\n\nYou Lose.\n");
+      DungeonManager.gameOver();
       // After combat runs, if player is dead you need to break the code of the runner.
     }
   }
