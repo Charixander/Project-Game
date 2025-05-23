@@ -55,5 +55,19 @@ public class Consumable extends Item {
   {
     return turnDuration;
   }
+
+  public String info()
+  {
+    String text = super.info();
+    text += "\n\nHealing : " + healthRestore + "\n";
+    if (turnDuration > 1)
+    {
+      text += "Regeneration Turn Time: " + (turnDuration-1) + "\n";
+    }
+
+    text += "\n Value Worth: $ " + super.getPrice() + "\n\n";
+
+    return text;
+  }
   
 }
