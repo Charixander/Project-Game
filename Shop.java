@@ -9,6 +9,7 @@ public class Shop {
   
   Item[] inventory = new Item[4];
   Player player;
+  int floorLevel;
   
   Scanner input = new Scanner(System.in);
   
@@ -18,7 +19,8 @@ public class Shop {
   * Pre: Player is not null
   * Post: Initializes a shop with an inventory to buy from containing one of each form of item.
   */
-  public Shop(Player player) {
+  public Shop(Player player, int floor) {
+    floorLevel = floor;
     this.player = player;
     createInventory();
     
@@ -44,6 +46,7 @@ public class Shop {
   public void dialouge() {
     boolean flag = true;
     int pick = 0;
+    System.out.println("Between floors you enter a shop, behind the counter a strange but friendly giant octopus runs the shop. He makes a motion offering you to peruse his wares.");
     while(flag) {
       System.out.println("\n|| [ Buy ] || [ Sell ] || [ Leave ] || " + "$" + player.getMoney() + " ||\n");
       String action = input.nextLine();
@@ -88,6 +91,7 @@ public class Shop {
         }
       } else if (action.toLowerCase().equals("leave")) {
         flag = false;
+        System.out.println("The octopus waves goodbye as you descend into the lower floor...");
       } else {
         System.out.println("Invalid input.\n");
       }
@@ -102,21 +106,14 @@ public class Shop {
   */
   public int dialougeBuy(int interact) {
     if (player.getMoney() >= inventory[interact - 1].getPrice()) {
-      System.out.println(player.openInventory());
-      System.out.println("Which slot number will you choose to replace?");
-      int slotNum = 0;
-      String n3 = input.nextLine();
-          if (n3.matches("-?\\d+"))
-          {
-            slotNum = Integer.parseInt(n3);
-          } else {
-            return 0;
-          }
-      if (slotNum > 10 || slotNum < 1) {
-        slotNum = 10;
-      }
-      player.setInventory(inventory[interact - 1], slotNum);
+      player.addInventory(inventory[interact - 1]);
       player.setMoney(0 - (inventory[interact - 1].getPrice()));
+      System.out.println(player.openInventory());
+      if(interact == 3) {
+        inventory[interact - 1] = generateArmor();
+      } else if(interact == 4) {
+        inventory[interact - 1] = generateWeapon();
+      }
       return 1;
     } else {
       return -1;
@@ -129,7 +126,7 @@ public class Shop {
   * Post: The health potion is created and returned.
   */
   private Consumable generateHealth() {
-    Consumable health = new Consumable("Health Potion", "A health potion.", Floor.getLevel(), 5 * Floor.getLevel(), 5 + Floor.getLevel(), 1);
+    Consumable health = new Consumable("Health Potion", "A health potion.", floorLevel, 15 * floorLevel, 1, floorLevel*5);
     health.setDescription(health.getDescription() + " Heals for " + health.getHeal() + " HP.");
     return health;
   }
@@ -140,8 +137,8 @@ public class Shop {
   * Post: The regeneration potion is created and returned.
   */
   private Consumable generateRegen() {
-    Consumable regen = new Consumable("Regeneration Potion", "A regeneration potion.", Floor.getLevel(), 15 * Floor.getLevel(), 5, 3 + Floor.getLevel());
-    regen.setDescription(regen.getDescription() + " Heals for 5 for " + (3 + Floor.getLevel()) + " turns.");
+    Consumable regen = new Consumable("Regeneration Potion", "A regeneration potion.", floorLevel, 5, floorLevel+3, 5 * floorLevel);
+    regen.setDescription(regen.getDescription() + " Heals for 5 for " + (3 + floorLevel) + " turns.");
     return regen;
   }
 
@@ -151,7 +148,8 @@ public class Shop {
   * Post: The armor is created and returned.
   */
   private Equippable generateArmor() {
-    Equippable armor = new Equippable(Equippable.randomDescription() + " Armor", "A piece of armor.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), false);
+    int randomModifier = (int)(Math.random()*4) + 3;
+    Equippable armor = new Equippable(Equippable.randomDescription() + " Armor", "A piece of armor.", floorLevel, randomModifier * floorLevel, false, randomModifier * 5 * floorLevel);
     armor.setDescription(armor.getDescription() + " Affects defense by " + armor.getDefense() + ".");  
     return armor;
   }
@@ -162,7 +160,8 @@ public class Shop {
   * Post: The weapon is created and returned.
   */
   private Equippable generateWeapon() {
-    Equippable weapon = new Equippable(Equippable.randomDescription() + " Sword", "A weapon.", Floor.getLevel(), 20 * Floor.getLevel(), 5 * Floor.getLevel(), true);
+    int randomModifier = (int)(Math.random()*5) + 4;
+    Equippable weapon = new Equippable(Equippable.randomDescription() + " Sword", "A weapon.", floorLevel, randomModifier * floorLevel, true, randomModifier * 5 * floorLevel);
     weapon.setDescription(weapon.getDescription() + " Affects attack by " + weapon.getAttack() + ".");  
     return weapon;
   }
