@@ -1,10 +1,13 @@
 public class Enemy extends Mob {
 
+  //rewards for beating the enemy
   private int xpReward;
   private int moneyReward;
+  //abilities to heal (if given the ability).
   private int healSelf;
   private int healOthers;
 
+  //constructor
   public Enemy ()
   {
     xpReward = 0;
@@ -13,6 +16,7 @@ public class Enemy extends Mob {
     healOthers = 0;
   }
 
+  //constructor
   public Enemy (String name)
   {
     super(name);
@@ -22,6 +26,7 @@ public class Enemy extends Mob {
     healOthers = 0;
   }
 
+  //constructor
   public Enemy (String name, int HP, int ATK, int DEF, int xp, int money)
   {
     super(name, HP, ATK, DEF, null, null);
@@ -31,6 +36,7 @@ public class Enemy extends Mob {
     healOthers = 0;
   }
 
+  //constructor
   public Enemy (String name, int HP, int ATK, int DEF, int xp, int money, int healSelf, int healOthers)
   {
     super(name, HP, ATK, DEF, null, null);
@@ -40,6 +46,7 @@ public class Enemy extends Mob {
     this.healOthers = healOthers;
   }
 
+  //constructor
   public Enemy (String name, int HP, int ATK, int DEF, int xp, int money, Equippable weapon, Equippable armor, int healSelf, int healOthers)
   {
     super(name, HP, ATK, DEF, weapon, armor);
@@ -49,6 +56,7 @@ public class Enemy extends Mob {
     this.healOthers = healOthers;
   }
 
+  //accessor methods
   public int getXP()
   {
     return xpReward;
@@ -79,6 +87,7 @@ public class Enemy extends Mob {
     return healOthers;
   }
 
+  //methods for healing self/others
   public void healSelf()
   {
     super.addHealth(healSelf);
@@ -89,6 +98,7 @@ public class Enemy extends Mob {
     e.addHealth(healOthers);
   }
 
+  //toString method to return info about enemy
   public String toString() {
     return super.toString() + "\n" + " XP: " + xpReward + "      Gold: " +  moneyReward;
   }
