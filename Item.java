@@ -63,6 +63,11 @@ public class Item {
     return description;
   }
 
+  public String setDescription(String desc)
+  {
+    description = desc;
+  }
+
   public int getLevel()
   {
     return level;
