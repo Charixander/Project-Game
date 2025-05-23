@@ -183,6 +183,10 @@ public class Player extends Mob {
     return inventory;
   }
 
+  public Item getInventory(int index) {
+    return inventory[index];
+  }
+
   public void setInventory(Item item, int index)
   {
     inventory[index-1] = item;
