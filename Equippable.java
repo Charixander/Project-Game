@@ -1,11 +1,18 @@
+/*
+* Equippable is for items the player can equip
+* Will either affect attack or defense depending on if it's a weapon or not
+*/
+
 public class Equippable extends Item {
 
   private int baseAttack;
   private int baseDefense;
   private boolean isWeapon;
-  private static String[] ItemDescriptions = {"Flamboyant", "Peculiar", "Shiny", "Massive", "Colorful", "Fancy", "Epic", "Demonic", "Worn out", "Interesting", "Monster", "Suspicious",
-                                             "Super", "Dense", "Weird Tasting", "Light"};
+  //for giving items custom names;
+  private static String[] ItemDescriptions = {"Flamboyant", "Peculiar", "Shiny", "Massive", "Colorful", "Fancy", "Epic", "Demonic", "Worn Out", "Interesting", "Monster", "Suspicious",
+                                             "Super", "Dense", "Weird Tasting", "Light", "Squishy"};
 
+  //constructors
   public Equippable () 
   {
     baseAttack = 1;
@@ -46,7 +53,7 @@ public class Equippable extends Item {
 
   public Equippable (String name, int stat, boolean isWeapon, int level)
   {
-    super(name, level);
+    super(name, "an item", level);
     this.isWeapon = isWeapon;
     if (isWeapon)
     {
@@ -76,6 +83,13 @@ public class Equippable extends Item {
     }
   }
 
+  //for giving weapons/armor descriptions
+  public static String randomDescription() {
+    int random = (int)(Math.random()*ItemDescriptions.length);
+    return ItemDescriptions[random];
+  }
+
+  //accesor methods
   public int getAttack()
   {
     int value = baseAttack;
@@ -95,25 +109,19 @@ public class Equippable extends Item {
     return isWeapon;
   }
 
-  public static String randomDescription() {
-    int random = (int)(Math.random()*ItemDescriptions.length);
-    return ItemDescriptions[random];
-  }
-
+  //prints info about the item
   public String info()
   {
     String text = super.info();
     text += "\n\n";
     if (isWeapon)
     {
-      text += "Attack Power: " + baseAttack + "\n";
+      text += "Attack Power: " + baseAttack;
     }
     else 
     {
-      text += "Defense Power: " + baseDefense + "\n";
+      text += "Defense Power: " + baseDefense;
     }
-
-    text += "\n Value Worth: $ " + super.getPrice() + "\n\n";
 
     return text;
   }
