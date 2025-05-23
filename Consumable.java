@@ -1,8 +1,15 @@
+/*
+* Consumable for health potions
+*/
+
+
 public class Consumable extends Item {
 
+  //player will heal healthRestore amount every turn for turnDuration amount of turns.
   private int healthRestore;
   private int turnDuration;
 
+  //constructors:
   public Consumable ()
   {
     healthRestore = 1;
@@ -40,22 +47,28 @@ public class Consumable extends Item {
     }
   }
 
+  //accesor method
   public int getHeal()
   {
     return healthRestore;
   }
 
+  //consumes the item
   public void consume(Player player)
   {
     player.addHealth(healthRestore);
     turnDuration--;
   }
 
+  //accesor method
   public int turnsLeft()
   {
     return turnDuration;
   }
+  
+}
 
+  //for getting info on consumable
   public String info()
   {
     String text = super.info();
