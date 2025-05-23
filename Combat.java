@@ -727,6 +727,7 @@ public class Combat {
       System.out.println("You earned " + totalXP + " xp!\n");
 
       player.setXP(totalXP);
+      player.setMoney(totalMoney);
     }
     else
     {
