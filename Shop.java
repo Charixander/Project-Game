@@ -8,10 +8,6 @@ public class Shop {
   */
   
   Item[] inventory = new Item[4];
-  String desc1;
-  String desc2;
-  String desc3;
-  String desc4;
   Player player;
   
   Scanner input = new Scanner(System.in);
