@@ -64,11 +64,18 @@ public class Player extends Mob {
 
   public void setXP(int num)
   {
+    boolean flag = false;
+    int currentLv = level;
     xp += num;
     while (xp > xpCap)
     {
+      flag = true;
       xp -= xpCap;
       levelUp();
+    }
+    if (flag)
+    {
+      System.out.println("You leveled up!\n" + (currentLv) + " --> " + level + "\n");
     }
   }
 
@@ -94,8 +101,6 @@ public class Player extends Mob {
     super.setATK((int) temp);
     temp = super.getBaseDEF() * 1.2;
     super.setDEF((int) temp);
-
-    System.out.println("You leveled up!\n" + (level-1) + " --> " + level + "\n");
   }
 
   public boolean checkInventory()
@@ -145,10 +150,6 @@ public class Player extends Mob {
           setInventory(item, n);
           break;
         }
-        else
-        {
-          
-        }
       }
       else 
       {
@@ -156,7 +157,6 @@ public class Player extends Mob {
       }
     }
     input.close();
-    
   }
   
   public void addInventory(Item item)
@@ -169,6 +169,7 @@ public class Player extends Mob {
       {
         inventory[i] = item;
         flag = false;
+        break;
       }
     }
     if (flag)
@@ -207,6 +208,7 @@ public class Player extends Mob {
 
   public String openInventory()
   {
+    updateInventory();
     String text = "";
     for (int i = 0; i < 5; i++)
     {
@@ -216,7 +218,7 @@ public class Player extends Mob {
       }
       else 
       {
-        text += "| " + inventory[i].getName() + "(" + (i+1) + ") |";
+        text += "| " + inventory[i].getName() + " (" + (i+1) + ") |";
       }
     }
     text += "\n";
@@ -232,5 +234,263 @@ public class Player extends Mob {
       }
     }
     return text;
+  }
+
+  public String openStats()
+  {
+    String text = "";
+    text += super.getName() + "'s Info\n\n";
+    text += "LV " + level + " [" + xp + "/" + xpCap + "]\n";
+    text += "$" + money + "\n";
+    text += "HP: " + super.getHealth() + "/" + super.getStatHP() + "\n";
+    text += "ATK: " + super.getStatATK();
+    if (super.getWeapon() != null)
+    {
+      text += " ("+ super.getBaseATK() + " +" + super.getWeapon().getAttack() + ")\n";
+    }
+    else
+    {
+      text += "\n";
+    }
+    text += "DEF: " + super.getStatDEF();
+    if (super.getArmor() != null)
+    {
+      text += " ("+ super.getBaseDEF() + " +" + super.getArmor().getDefense() + ")\n\n";
+    }
+    else
+    {
+      text += "\n\n";
+    }
+    if (super.getWeapon() != null)
+    {
+      text += "Weapon: " + super.getWeapon().getName() + "\n";
+    }
+    else
+    {
+      text += "Weapon: N/A\n";
+    }
+    if (super.getArmor() != null)
+    {
+      text += "Armor: " + super.getArmor().getName() + "\n";
+    }
+    else
+    {
+      text += "Armor: N/A\n";
+    }
+
+    return text;
+  }
+
+  public void displayHud()
+  {
+    System.out.println(openStats());
+    System.out.println(openInventory());
+  }
+
+  public void hud()
+  {
+    Scanner input = new Scanner(System.in);
+    
+    while (true)
+    {
+      displayHud();
+      System.out.println("Type the number value to select an inventory item.");
+      System.out.println("Type 'armor' or 'weapon' to select it.");
+      System.out.println("Type 'back' to exit.");
+      int n = -1;
+      String temp = input.nextLine();
+      if (temp.matches("-?\\d+"))
+      {
+        n = Integer.parseInt(temp);
+      }
+      if (temp.toLowerCase().equals("back"))
+      {
+        break;
+      }
+      else if (temp.toLowerCase().equals("weapon"))
+      {
+        if (super.getWeapon() == null)
+        {
+          System.out.println("No weapon is equipped.");
+        }
+        else
+        {
+          boolean flagA = true;
+          while (flagA)
+          {
+            System.out.println("\n[Info]  [Unequip]  [Discard]  [Back]\n");
+            temp = input.nextLine();
+            System.out.println("");
+            if (temp.toLowerCase().equals("info"))
+            {
+              System.out.println(super.getWeapon().info());
+            }
+            else if (temp.toLowerCase().equals("unequip"))
+            {
+              if (checkInventory())
+              {
+                Equippable w = super.getWeapon();
+                super.setWeapon(null);
+                addInventory(w);
+                flagA = false;
+              }
+              else
+              {
+                System.out.println("There's no space in your inventory.");
+              }
+            }
+            else if (temp.toLowerCase().equals("discard"))
+            {
+              System.out.println("You discarded the " + super.getWeapon().getName());
+              super.setWeapon(null);
+              flagA = false;
+            }
+            else if (temp.toLowerCase().equals("back"))
+            {
+              flagA = false;
+            }
+            else
+            {
+              System.out.println("Invalid input!");
+            }
+          }
+        }
+      }
+      else if (temp.toLowerCase().equals("armor"))
+      {
+        if (super.getArmor() == null)
+        {
+          System.out.println("No armor is equipped.");
+        }
+        else
+        {
+          boolean flagA = true;
+          while (flagA)
+          {
+            System.out.println("\n[Info]  [Unequip]  [Discard]  [Back]\n");
+            temp = input.nextLine();
+            System.out.println("");
+            if (temp.toLowerCase().equals("info"))
+            {
+              System.out.println(super.getArmor().info());
+            }
+            else if (temp.toLowerCase().equals("unequip"))
+            {
+              if (checkInventory())
+              {
+                Equippable a = super.getArmor();
+                super.setArmor(null);
+                addInventory(a);
+                flagA = false;
+              }
+              else
+              {
+                System.out.println("There's no space in your inventory.");
+              }
+            }
+            else if (temp.toLowerCase().equals("discard"))
+            {
+              System.out.println("You discarded the " + super.getArmor().getName());
+              super.setArmor(null);
+              flagA = false;
+            }
+            else if (temp.toLowerCase().equals("back"))
+            {
+              flagA = false;
+            }
+            else
+            {
+              System.out.println("Invalid input!");
+            }
+          }
+        }
+      }
+      else if (n >= 1 && n <= 10)
+      {
+        System.out.println("\nYou selected " + inventory[n-1].getName() + ".");
+        boolean flagA = true;
+        while (flagA)
+        {
+          System.out.println("\n[Info]  [Use]  [Discard]  [Back]\n");
+          temp = input.nextLine();
+          System.out.println("");
+          if (temp.toLowerCase().equals("info"))
+          {
+            System.out.println(inventory[n-1].info());
+          }
+          else if (temp.toLowerCase().equals("use"))
+          {
+            if (inventory[n-1] instanceof Consumable)
+            {
+              Consumable c = (Consumable) inventory[n-1];
+              System.out.println("You use the " + inventory[n-1].getName());
+              super.addHealth(c.getHeal());
+              inventory[n-1] = null;
+              flagA = false;
+            }
+            else 
+            {
+              Equippable e = (Equippable) inventory[n-1];
+              System.out.println("You equip the " + inventory[n-1].getName());
+              if (e.isWeapon())
+              {
+                if (super.getWeapon() == null)
+                {
+                  super.setWeapon(e);
+                  inventory[n-1] = null;
+                  flagA = false;
+                }
+                else
+                {
+                  System.out.println("You unequip the " + super.getWeapon().getName());
+                  Equippable f = super.getWeapon();
+                  super.setWeapon(e);
+                  inventory[n-1] = null;
+                  addInventory(f);
+                  flagA = false;
+                }
+              }
+              else
+              {
+                if (super.getArmor() == null)
+                {
+                  super.setArmor(e);
+                  inventory[n-1] = null;
+                  flagA = false;
+                }
+                else
+                {
+                  System.out.println("You unequip the " + super.getArmor().getName());
+                  Equippable f = super.getArmor();
+                  super.setArmor(e);
+                  inventory[n-1] = null;
+                  addInventory(f);
+                  flagA = false;
+                }
+              }
+            }
+          }
+          else if (temp.toLowerCase().equals("discard"))
+          {
+            System.out.println("You discarded the " + inventory[n-1].getName());
+            setInventory(null, n);
+            flagA = false;
+          }
+          else if (temp.toLowerCase().equals("back"))
+          {
+            flagA = false;
+          }
+          else
+          {
+            System.out.println("Invalid input!\n");
+          }
+        }
+      }
+      else 
+      {
+        System.out.println("Invalid input!\n");
+      }
+    }
+    input.close();
   }
 }
