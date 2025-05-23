@@ -1,3 +1,10 @@
+/*
+*Superclass for different creatures including player and enemy
+*basic info for a creature that will fight
+*
+*/
+
+
 public class Mob {
 
   private String name;
@@ -5,10 +12,12 @@ public class Mob {
   private int healthStat;
   private int attackStat;
   private int defenseStat;
+  //keeps track of creature has died or not
   private boolean isAlive;
   private Equippable weapon;
   private Equippable armor;
 
+  //constructors:
   public Mob ()
   {
     name = "John Doe";
@@ -68,6 +77,7 @@ public class Mob {
     this.armor = armor;
   }
 
+  //set max HP of the mob.
   public void setHP(int amount)
   {
     healthStat = amount;
@@ -85,6 +95,7 @@ public class Mob {
     }
   }
 
+  //sets the current HP of a mob.
   public void setCurrentHP(int amount)
   {
     currentHealth = amount;
@@ -98,6 +109,7 @@ public class Mob {
     }
   }
 
+  //mutator methods:
   public void setATK(int amount)
   {
     attackStat = amount;
@@ -108,6 +120,7 @@ public class Mob {
     defenseStat = amount;
   }
 
+  //accessor methods:
   public String getName()
   {
     return name;
@@ -166,6 +179,7 @@ public class Mob {
     return armor;
   }
 
+  //accessor methods:
   public void setWeapon(Equippable weapon)
   {
     this.weapon = weapon;
@@ -176,6 +190,7 @@ public class Mob {
     this.armor = armor;
   }
 
+  //heals mob by amount
   public void addHealth(int amount) {
     currentHealth += amount;
     if (currentHealth > healthStat) {
@@ -183,6 +198,7 @@ public class Mob {
     }
   }
 
+  //mob takes damage, damage mitigated by defense. 
   public int takeDamage(int amount)
   {
     int damage = amount;
@@ -200,6 +216,7 @@ public class Mob {
     return damage;
   }
 
+  //toString method for mob.
   public String toString() {
     return name + "\n HP: " + healthStat + "     ATK: " + attackStat + "     DEF: " + defenseStat;
   }
