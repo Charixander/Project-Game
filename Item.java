@@ -63,7 +63,7 @@ public class Item {
     return description;
   }
 
-  public String setDescription(String desc)
+  public void setDescription(String desc)
   {
     description = desc;
   }
