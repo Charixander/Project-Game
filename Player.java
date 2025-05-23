@@ -131,10 +131,15 @@ public class Player extends Mob {
     super.setHP((int) temp);
     temp = super.getHealth() * 1.1;
     super.setCurrentHP((int) temp);
+    super.setCurrentHP(super.getHealth()+2);
+    
     temp = super.getBaseATK() * 1.2;
     super.setATK((int) temp);
+    super.setATK(super.getBaseATK()+2);
+    
     temp = super.getBaseDEF() * 1.2;
     super.setDEF((int) temp);
+    super.setDEF(super.getBaseDEF()+2);
   }
 
   /**
